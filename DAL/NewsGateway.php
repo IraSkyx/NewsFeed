@@ -6,6 +6,7 @@
  * Date: 15/11/17
  * Time: 14:45
  */
+
 class NewsGateway
 {
     private $con;
@@ -22,40 +23,40 @@ class NewsGateway
         return $this->con->GetResults();
     }
 
-    public function Insert($Title, $Description, $Link, $Guid, $PubDate, $Category){
+    public function Insert($title, $description, $link, $guid, $pubDate, $category){
 
         $query="INSERT INTO News VALUES (:Title,:Description,:Link,:Guid, :PubDate, :Category)";
 
         $this->con->executeQuery($query, array(
-            ':Title' => array($Title, PDO::PARAM_STR),
-            ':Description' => array($Description, PDO::PARAM_STR),
-            ':Link' => array($Link, PDO::PARAM_STR),
-            ':Guid' => array($Guid, PDO::PARAM_STR),
-            ':PubDate' => array(date("Y-m-d H:i:s", strtotime($PubDate)), PDO::PARAM_STR),
-            ':Category' => array($Category, PDO::PARAM_STR)
+            ':Title' => array($title, PDO::PARAM_STR),
+            ':Description' => array($description, PDO::PARAM_STR),
+            ':Link' => array($link, PDO::PARAM_STR),
+            ':Guid' => array($guid, PDO::PARAM_STR),
+            ':PubDate' => array(date("Y-m-d H:i:s", strtotime($pubDate)), PDO::PARAM_STR),
+            ':Category' => array($category, PDO::PARAM_STR)
         ));
 
         return $this->con->lastInsertId();
     }
 
-    public function Update($Title, $Description, $Link, $Guid, $PubDate, $Category){
+    public function Update($title, $description, $link, $guid, $pubDate, $category){
         $query="UPDATE News SET Title=:Title,Description=:Description,Link=:Link,Guid=:Guid, PubDate=:PubDate,Category=:Category)";
 
         return $this->con->executeQuery($query, array(
-            ':Title' => array($Title, PDO::PARAM_STR),
-            ':Description' => array($Description, PDO::PARAM_STR),
-            ':Link' => array($Link, PDO::PARAM_STR),
-            ':Guid' => array($Guid, PDO::PARAM_STR),
-            ':PubDate' => array(date("Y-m-d H:i:s", strtotime($PubDate)), PDO::PARAM_STR),
-            ':Category' => array($Category, PDO::PARAM_STR)
+            ':Title' => array($title, PDO::PARAM_STR),
+            ':Description' => array($description, PDO::PARAM_STR),
+            ':Link' => array($link, PDO::PARAM_STR),
+            ':Guid' => array($guid, PDO::PARAM_STR),
+            ':PubDate' => array(date("Y-m-d H:i:s", strtotime($pubDate)), PDO::PARAM_STR),
+            ':Category' => array($category, PDO::PARAM_STR)
         ));
     }
 
-    public function Delete($Title){
+    public function Delete($title){
         $query="DELETE FROM News WHERE Title=:Title";
 
         return $this->con->executeQuery($query, array(
-            ':Title' => array($Title, PDO::PARAM_STR)
+            ':Title' => array($title, PDO::PARAM_STR)
         ));
     }
 }

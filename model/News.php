@@ -6,33 +6,30 @@
  * Date: 15/11/17
  * Time: 14:06
  */
-class News
-{
-    private $Title;
-    private $Description;
-    private $Link;
-    private $Guid;
-    private $PubDate;
-    private $Category;
+class News {
+
+    private $title;
+    private $description;
+    private $link;
+    private $guid;
+    private $pubDate;
+    private $category;
 
     /**
      * News constructor.
-     * @param $Title
-     * @param $Description
-     * @param $Link
-     * @param $Guid
-     * @param $PubDate
-     * @param $Category
+     * @param $title
+     * @param $description
+     * @param $link
+     * @param $guid
+     * @param $pubDate
+     * @param $category
      */
-    public function __construct($Title, $Description, $Link, $Guid, $PubDate, $Category)
-    {
-        $this->Title = $Title;
-        $this->Description = $Description;
-        $this->Link = $Link;
-        $this->Guid = $Guid;
-        $this->PubDate = $PubDate;
-        $this->Category = $Category;
+    public function __construct($title, $description, $link, $guid, $pubDate, $category) {
+        $this->title = $title;
+        $this->description = $description;
+        $this->link = $link;
+        $this->guid = $guid;
+        $this->pubDate = $pubDate;
+        $this->category = $category;
     }
-
-
 }
