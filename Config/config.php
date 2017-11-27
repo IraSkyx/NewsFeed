@@ -4,9 +4,9 @@ $rep=__DIR__.'/../';
 
 
 //BD
-$base="dbadlenoir";
+$db="dbadlenoir";
 $login="adlenoir";
-$mdp="adlenoir";
+$password="adlenoir";
 
 //Views
 $views['error']='Views/Error.php';

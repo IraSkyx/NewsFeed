@@ -14,7 +14,7 @@ class UserController {
 			switch($action) {
 
 				case NULL:
-					require($rep.$views['home']);
+					$this->DisplayAllNews();
 					break;
 
 
@@ -23,10 +23,10 @@ class UserController {
 					break;
 
 				default:
-					$errors[] =	"Error bad PHP call";
+					$errors[] =	"Bad request";
 					require ($rep.$views['error']);
 			}
-		} 
+		}
 		catch (PDOException $ex) {
 			$errors[] =	"Database error " . $ex;
 			require ($rep.$views['error']);
@@ -38,7 +38,10 @@ class UserController {
 		exit(0);
 	}
 
-	private function Login(){
-		global $rep,$views;
+	private function DisplayAllNews(){
+			global $rep,$views,$contents;
+			$md = new Modele();
+			$allNews = $md->getAllNews();
+			require($rep.$views['home']);
 	}
 }

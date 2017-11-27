@@ -12,6 +12,7 @@ class Connection extends PDO {
   private $stmt;
 
   public function __construct() {
+    global $db,$login,$password;
     parent::__construct($db,$login,$password);
     $this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   }
