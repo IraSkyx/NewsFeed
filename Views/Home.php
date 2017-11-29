@@ -2,7 +2,7 @@
 
 <html lang="fr">
   
-  <?php include($rep.$contents['head'])?> 
+  <?php include($rep.$contents['head']) ?> 
 
   <body>
 
@@ -40,11 +40,16 @@
     </nav>
 
     <main role="main" class="container">
+      <table style="width:100%">
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Date</th>
+        </tr>
 
-      <div class="starter-template">
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-      </div>
+
+
+        </table>
 
     </main><!-- /.container -->
   
@@ -52,3 +57,4 @@
 
   </body>
 </html>
+

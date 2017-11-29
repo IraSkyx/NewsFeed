@@ -4,7 +4,7 @@ $rep=__DIR__.'/../';
 
 
 //BD
-$db="dbadlenoir";
+$dsn="mysql:host=hina;dbname=dbadlenoir";
 $login="adlenoir";
 $password="adlenoir";
 

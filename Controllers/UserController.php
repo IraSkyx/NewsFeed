@@ -40,8 +40,7 @@ class UserController {
 
 	private function DisplayAllNews(){
 			global $rep,$views,$contents;
-			$md = new Modele();
-			$allNews = $md->getAllNews();
+			$allNews = Model::getAllNews($_GET['page']);
 			require($rep.$views['home']);
 	}
 }

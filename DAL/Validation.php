@@ -1,6 +1,6 @@
 <?php
 
-class ValidationManager{
+class Validation{
 
     public static function AreSet($args=array('')){
         $res=true;

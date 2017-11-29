@@ -15,10 +15,12 @@ class NewsGateway
         $this->con = $con;
     }
 
-    public function GetAll(){
-        $query="SELECT * FROM News";
+    public function GetAllNews(int $page){
+        $query="SELECT * FROM News LIMIT :Page, 10";
 
-        $this->con->executeQuery($query);
+        $this->con->executeQuery($query, array(
+            ':Page' => array($page+1, PDO::PARAM_INT)
+        ));
 
         return $this->con->GetResults();
     }
