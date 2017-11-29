@@ -7,8 +7,7 @@
  * Time: 14:45
  */
 
-class NewsGateway
-{
+class NewsGateway {
     private $con;
 
     public function __construct(Connection $con){
@@ -19,10 +18,28 @@ class NewsGateway
         $query="SELECT * FROM News LIMIT :Page, 10";
 
         $this->con->executeQuery($query, array(
-            ':Page' => array($page-1, PDO::PARAM_INT)
+            ':Page' => array(($page-1)*10, PDO::PARAM_INT)
         ));
 
         return $this->con->GetResults();
+    }
+
+    public function GetNewsByKeyWord(string $keyword){
+        $query="SELECT * FROM News WHERE Title REGEXP :Regex OR Description REGEXP :Regex";
+
+        $this->con->executeQuery($query, array(
+            ':Regex' => array($keyword, PDO::PARAM_STR)
+        ));
+
+        return $this->con->GetResults();
+    }
+
+    public function getNbNews() {
+        $query="SELECT COUNT(*) FROM News";
+
+        $this->con->executeQuery($query);
+
+        return ($this->con->getResult())['COUNT(*)'];
     }
 
     public function Insert($title, $description, $link, $guid, $pubDate, $category){

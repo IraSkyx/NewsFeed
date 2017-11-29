@@ -14,11 +14,13 @@ $password="";
 //$password="adlenoir";
 
 //Views
-$views['error']='Views/Error.php';
-$views['login']='Views/Login.php';
-$views['home']='Views/Home.php';
+$views['error']='views/Error.php';
+$views['login']='views/Login.php';
+$views['home']='views/Home.php';
+$views['404']='views/404.php';
+$views['news']='views/News.php';
 
-$contents['head']='Views/Contents/Head.php';
-$contents['header']='Views/Contents/Header.php';
-$contents['scripts']='Views/Contents/Scripts.php';
-$contents['footer']='Views/Contents/Footer.php';
+$contents['head']='views/Contents/Head.php';
+$contents['header']='views/Contents/Header.php';
+$contents['scripts']='views/Contents/Scripts.php';
+$contents['footer']='views/Contents/Footer.php';

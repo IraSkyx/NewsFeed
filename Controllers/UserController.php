@@ -18,8 +18,8 @@ class UserController {
 					break;
 
 
-				case "login":
-					$this->Login();
+				case "search":
+					$this->Search();
 					break;
 
 				default:
@@ -38,9 +38,19 @@ class UserController {
 		exit(0);
 	}
 
+	private function Search(){
+		global $rep,$views,$contents;
+		$keyWord=Cleaner::CleanString($_POST['keyWord']);
+		$allNews=Model::getNewsByKeyWord($keyWord);
+		$nbNews=count($allNews);
+		require($rep.$views['home']);
+	}
+
 	private function DisplayAllNews(){
 			global $rep,$views,$contents;
-			$allNews = Model::getAllNews($_GET['page']);
+			$page=Cleaner::CleanInt($_GET['page']);
+			$allNews = Model::getAllNews($page);
+			$nbNews = Model::getNbNews();
 			require($rep.$views['home']);
 	}
 }
