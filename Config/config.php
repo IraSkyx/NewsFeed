@@ -3,10 +3,15 @@
 $rep=__DIR__.'/../';
 
 
-//BD
-$dsn="mysql:host=hina;dbname=dbadlenoir";
-$login="adlenoir";
-$password="adlenoir";
+//Config adrien
+$dsn="mysql:host=localhost;dbname=dbadlenoir";
+$login="root";
+$password="";
+
+//Config IUT
+//$dsn="mysql:host=hina;dbname=dbadlenoir";
+//$login="adlenoir";
+//$password="adlenoir";
 
 //Views
 $views['error']='Views/Error.php';

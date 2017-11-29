@@ -5,4 +5,5 @@
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
 <!-- Custom JS files -->
+<script type="text/javascript" src="Views/Js/jquery.timeago.js"></script>
 <script type="text/javascript" src="Views/Js/NewsFeed.js"></script>

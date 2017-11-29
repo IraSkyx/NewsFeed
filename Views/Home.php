@@ -1,63 +1,20 @@
 <!DOCTYPE html>
 
 <html lang="fr">
-  
-  <?php include($rep.$contents['head']) ?> 
-
+  <?php include($rep.$contents['head']) ?>
   <body>
 
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <?php include($rep.$contents['header']) ?>
 
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" placeholder="Search" aria-label="Search" type="text">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-      </div>
-    </nav>
+   <div class="container">
 
-    <main role="main" class="container">
-      <table style="width:100%">
-        <tr>
-          <th>Title</th>
-          <th>Description</th>
-          <th>Date</th>
-        </tr>
+       <?php foreach ($allNews as $article)
+         echo '<a href="'.$article['Link'].'"><div class="row shadow"><div><h3><i class="fa fa-clock-o" aria-hidden="true"></i><time class="timeago" datetime="'.$article['PubDate'].'"></time></h3><div><h2>'.$article['Title'].'</h2><h3>'.$article['Description'].'</h3></div></a>';
+       ?>
 
-        <?php foreach ($allNews as $article){
-          echo '<tr><td>'.$article['Title'].'</td><td>'.$article['Description'].'</td><td>'.$article['PubDate'].'</td></tr>';
-        }
-        ?>
+   </div>
 
-        </table>
-
-    </main><!-- /.container -->
-  
-  <?php include($rep.$contents['scripts'])?> 
+  <?php include($rep.$contents['scripts'])?>
 
   </body>
 </html>
-
