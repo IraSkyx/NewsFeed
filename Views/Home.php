@@ -47,7 +47,10 @@
           <th>Date</th>
         </tr>
 
-
+        <?php foreach ($allNews as $article){
+          echo '<tr><td>'.$article['Title'].'</td><td>'.$article['Description'].'</td><td>'.$article['PubDate'].'</td></tr>';
+        }
+        ?>
 
         </table>
 

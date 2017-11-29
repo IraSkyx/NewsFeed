@@ -19,7 +19,7 @@ class NewsGateway
         $query="SELECT * FROM News LIMIT :Page, 10";
 
         $this->con->executeQuery($query, array(
-            ':Page' => array($page+1, PDO::PARAM_INT)
+            ':Page' => array($page-1, PDO::PARAM_INT)
         ));
 
         return $this->con->GetResults();
