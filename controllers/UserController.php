@@ -53,9 +53,8 @@ class UserController {
 	private function signin() {
 		global $rep,$views,$contents;
 		if(isset($_POST['inputUsername']) && isset($_POST['inputPassword'])){
-			
-			$admin=AdminModel::connect($_POST['inputUsername'], $_POST['inputPassword']);
 
+			$admin=AdminModel::connect($_POST['inputUsername'], $_POST['inputPassword']);
 			if($admin == null) {
 				$wrong=true;
 				require($rep.$views['login']);
@@ -63,7 +62,6 @@ class UserController {
 			else
 				header('Location: index.php');
 		}
-
 	}
 
 	private function search() {
@@ -78,7 +76,7 @@ class UserController {
 			header('Location: index.php');
 	}
 
-	private function displayAllNews() {
+	protected function displayAllNews() {
 			global $rep,$views,$contents;
 			$page=Cleaner::CleanInt($_GET['page']);
 			$allNews = UserModel::getAllNews($page);

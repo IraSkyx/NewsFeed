@@ -9,7 +9,7 @@
 class AdminController extends UserController {
 
 	function __construct($action) {
-		global $rep,$views,$contents;
+		global $rep,$views,$contents, $admin;
 		$errors = array();
 		$action=Cleaner::CleanString($action);
 
@@ -21,8 +21,8 @@ class AdminController extends UserController {
 					$this->displayAllNews();
 					break;
 
-				case "logoff":
-					$this->logoff();
+				case "logout":
+					$this->logout();
 					break;
 
 				default:
@@ -37,7 +37,7 @@ class AdminController extends UserController {
 		exit(0);
 	}
 
-	private function logoff() {
+	private function logout() {
 		global $rep,$views,$contents;
 		AdminModel::disconnect();
 		$this->displayAllNews();

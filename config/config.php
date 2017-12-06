@@ -4,9 +4,9 @@ $rep=__DIR__.'/../';
 
 
 //Config Adrien
-/*$dsn="mysql:host=localhost;dbname=dbadlenoir";
+$dsn="mysql:host=localhost;dbname=dbadlenoir";
 $login="root";
-$password="";*/
+$password="";
 
 //Config Gabin
 //$dsn="mysql:host=localhost;dbname=dbadlenoir";
@@ -14,9 +14,9 @@ $password="";*/
 //$password="root";
 
 //Config IUT
-$dsn="mysql:host=hina;dbname=dbadlenoir";
-$login="adlenoir";
-$password="adlenoir";
+//$dsn="mysql:host=hina;dbname=dbadlenoir";
+//$login="adlenoir";
+//$password="adlenoir";
 
 //Views
 $views['error']='views/Error.php';

@@ -5,17 +5,14 @@ error_reporting(E_ALL & ~E_NOTICE);
 class FrontController {
 
   function __construct(){
-  	session_start();
 
-  	$adminActions=array();
-  	$usersActions=array();
+  	$adminActions=array('addFlux', 'logout');
+  	$usersActions=array('login');
 
     $action = Cleaner::CleanString($_REQUEST['action']);
-    $admin = AdminModel::isAdmin();
+    $GLOBALS['admin'] = AdminModel::isAdmin();
 
-    var_dump($admin);
-
-    if($admin == null)
+    if($GLOBALS['admin'] == null)
         new UserController($action);
     else
         new AdminController($action);

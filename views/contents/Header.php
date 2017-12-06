@@ -17,13 +17,14 @@
        <input class="form-control mr-sm-2" name="keyWord" type="text" placeholder="&#xf002; Search" style="font-family:Arial, FontAwesome" >
      </form>
      <?php
-     global $admin;
-      if(isset($admin))
-        echo '<form class="form-inline my-2 my-lg-0" method="post" action="index.php?action=logoff">
-                <h3>Welcome'.$admin->getUsername().'</h3>
-                <button class="btn btn-outline-secondary my-2 my-sm-0">Log off</button>
-              </form>';
-      else
+     if(isset($GLOBALS['admin']) && $GLOBALS['admin'] != null){
+       echo $GLOBALS['admin'];
+       echo '<form class="form-inline my-2 my-lg-0" method="post" action="index.php?action=logout">
+               <button class="btn btn-outline-secondary my-2 my-sm-0">Logout</button>
+             </form>';
+     }
+
+     else
         echo '<form class="form-inline my-2 my-lg-0" method="post" action="index.php?action=login">
                 <button class="btn btn-outline-secondary my-2 my-sm-0">Log in</button>
               </form>';
