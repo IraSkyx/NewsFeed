@@ -1,10 +1,5 @@
 <html>
-	<head>
-		<title>Errors</title>
-	</head>
-
 	<body>
-
 		<h1>Raised exceptions</h1>
 
 		<?php

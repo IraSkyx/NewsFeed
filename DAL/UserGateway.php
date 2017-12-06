@@ -26,27 +26,25 @@ class UserGateway {
         return $this->con->getFirst();
     }
 
-    public function Insert($pseudo, $mdp, $role){
+    public function Insert($username, $password){
 
-      $query='INSERT INTO Users VALUES(:pseudo, :mdp, :role)';
+      $query='INSERT INTO Users VALUES(:Username, :Password)';
 
       $this->con->executeQuery($query, array(
-          ':login'=>array($pseudo, PDO::PARAM_STR),
-          ':mdp'=>array($mdp, PDO::PARAM_STR),
-          ':role'=>array($role, PDO::PARAM_STR)
+          ':Username' => array($username, PDO::PARAM_STR),
+          ':Password' => array($password, PDO::PARAM_STR)
       ));
 
       return $this->con->lastInsertId();
     }
 
-    public function Update($username, $password, $statut){
+    public function Update($username, $password){
 
-      $query= 'UPDATE Users SET Username=:Username, Password=:Password, Statut=:Statut';
+      $query= 'UPDATE Users SET Username=:Username, Password=:Password';
 
       return $this->con->executeQuery($query, array(
           ':Username' => array($username, PDO::PARAM_STR),
-          ':Password' => array($password, PDO::PARAM_STR),
-          ':Username' => array($statut, PDO::PARAM_STR)
+          ':Password' => array($password, PDO::PARAM_STR)
       ));
     }
 

@@ -19,6 +19,7 @@ $views['login']='views/Login.php';
 $views['home']='views/Home.php';
 $views['404']='views/404.php';
 $views['news']='views/News.php';
+$views['index']='index.php';
 
 $contents['head']='views/contents/Head.php';
 $contents['header']='views/contents/Header.php';

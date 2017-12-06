@@ -14,7 +14,7 @@ class UserModel {
     return (new NewsGateway(new Connection()))->GetNewsByKeyWord($keyword);
   }
 
-  public static function login($username, $password) : bool {
-     return count((new UserGateway(new Connection()))->GetUser($username, $password)) > 0;
+  public static function login($username, $password) {
+    return (new UserGateway(new Connection()))->GetUser($username, hash("sha512", $password));
   }
 }
