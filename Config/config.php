@@ -3,10 +3,15 @@
 $rep=__DIR__.'/../';
 
 
-//Config adrien
+//Config Adrien
+/*$dsn="mysql:host=localhost;dbname=dbadlenoir";
+$login="root";
+$password="";*/
+
+//Config Gabin
 $dsn="mysql:host=localhost;dbname=dbadlenoir";
 $login="root";
-$password="";
+$password="root";
 
 //Config IUT
 //$dsn="mysql:host=hina;dbname=dbadlenoir";
