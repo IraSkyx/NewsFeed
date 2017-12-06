@@ -2,14 +2,34 @@
 
 class AdminModel {
 
-  static function isAdmin() {
-      session_start();
-      if(isset($_SESSION['username']) && isset($_SESSION['password'])){
-        $username=Cleaner::cleanString($_SESSION['username']);
-        $password=Cleaner::cleanString($_SESSION['password']);
-        return (new UserGateway())->GetUser($username,$password);
-      }
-      return false;
-  }
+	static function connect($username, $password){
+		$username=Cleaner::CleanString($username);
+		$password=Cleaner::CleanString($password);
+
+		$admin=(new UserGateway())->GetUser($username, hash("sha512", $password));
+
+		if($admin == null)
+			return null;
+
+		$_SESSION['username']=$admin->getUsername();
+		$_SESSION['password']=hash('sha512',$admin->getPassword());
+		$_SESSION['sessionID']=password_hash(session_id());
+
+		return $admin;
+	}
+	
+	static function disconnect() {
+		session_unset();
+		session_destroy();
+		$_SESSION=array();	
+	}
+
+	static function isAdmin() {
+	    if(isset($_SESSION['username']) && isset($_SESSION['password']) && isset($_SESSION['sessionID'])){
+	       if(password_verify(session_id(),$_SESSION['sessionID']))
+	       		return new Admin(Cleaner::CleanString($_SESSION['username']), Cleaner::CleanString($_SESSION['password']));      
+	    }
+	    return null;
+	}
 
 }

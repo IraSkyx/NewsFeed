@@ -50,26 +50,18 @@ class UserController {
 		require($rep.$views['login']);
 	}
 
-	private function logoff() {
-		global $rep,$views,$contents;
-		UserModel::logoff();
-	}
-
 	private function signin() {
 		global $rep,$views,$contents;
 		if(isset($_POST['inputUsername']) && isset($_POST['inputPassword'])){
-			$username=Cleaner::CleanString($_POST['inputUsername']);
-			$password=Cleaner::CleanString($_POST['inputPassword']);
-			$admin=UserModel::login($username, $password);
-			if(!$admin) {
+			
+			$admin=AdminModel::connect($_POST['inputUsername'], $_POST['inputPassword']);
+
+			if($admin == null) {
 				$wrong=true;
 				require($rep.$views['login']);
 			}
-			else{
-				session_start();
-				$_SESSION['username']=$admin['username'];
+			else
 				header('Location: index.php');
-			}
 		}
 
 	}

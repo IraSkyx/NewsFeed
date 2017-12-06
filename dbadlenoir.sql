@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.6.6deb4
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 06 déc. 2017 à 10:49
--- Version du serveur :  5.7.19
--- Version de PHP :  7.1.9
+-- Host: localhost
+-- Generation Time: Dec 06, 2017 at 02:33 PM
+-- Server version: 5.5.58-0+deb8u1-log
+-- PHP Version: 7.0.26-1~dotdeb+8.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,28 +17,26 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `dbadlenoir`
+-- Database: `dbadlenoir`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `news`
+-- Table structure for table `news`
 --
 
-DROP TABLE IF EXISTS `news`;
-CREATE TABLE IF NOT EXISTS `news` (
+CREATE TABLE `news` (
   `Title` varchar(200) NOT NULL,
   `Description` text NOT NULL,
   `Link` varchar(200) NOT NULL,
   `Guid` varchar(200) NOT NULL,
   `PubDate` datetime NOT NULL,
-  `Category` varchar(50) NOT NULL,
-  PRIMARY KEY (`Guid`)
+  `Category` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `news`
+-- Dumping data for table `news`
 --
 
 INSERT INTO `news` (`Title`, `Description`, `Link`, `Guid`, `PubDate`, `Category`) VALUES
@@ -49,23 +45,36 @@ INSERT INTO `news` (`Title`, `Description`, `Link`, `Guid`, `PubDate`, `Category
 -- --------------------------------------------------------
 
 --
--- Structure de la table `users`
+-- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
+CREATE TABLE `users` (
   `username` varchar(200) NOT NULL,
-  `password` varchar(200) NOT NULL,
-  PRIMARY KEY (`username`)
+  `password` varchar(200) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`username`, `password`) VALUES
 ('admin', 'c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec');
-COMMIT;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `news`
+--
+ALTER TABLE `news`
+  ADD PRIMARY KEY (`Guid`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`username`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

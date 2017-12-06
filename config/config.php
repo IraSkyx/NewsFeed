@@ -9,14 +9,14 @@ $login="root";
 $password="";*/
 
 //Config Gabin
-$dsn="mysql:host=localhost;dbname=dbadlenoir";
-$login="root";
-$password="root";
+//$dsn="mysql:host=localhost;dbname=dbadlenoir";
+//$login="root";
+//$password="root";
 
 //Config IUT
-//$dsn="mysql:host=hina;dbname=dbadlenoir";
-//$login="adlenoir";
-//$password="adlenoir";
+$dsn="mysql:host=hina;dbname=dbadlenoir";
+$login="adlenoir";
+$password="adlenoir";
 
 //Views
 $views['error']='views/Error.php';

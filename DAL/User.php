@@ -8,20 +8,25 @@
  */
 
 class User {
-    private $login;
+    private $username;
     private $password;
-    private $statut;
 
     /**
      * User constructor.
-     * @param $login
+     * @param $username
      * @param $password
-     * @param $statut
      */
-    function __construct($login,$password,$statut)
+    function __construct($username,$password)
     {
-        $this->login=$login;
+        $this->username=$username;
         $this->password=$password;
-        $this->statut=$statut;
+    }
+
+    function getUsername() {
+        return $this->username;
+    }
+
+    function getPassword() {
+        return $this->password;
     }
 }

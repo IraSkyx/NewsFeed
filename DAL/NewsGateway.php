@@ -10,12 +10,12 @@
 class NewsGateway {
     private $con;
 
-    public function __construct(Connection $con){
-        $this->con = $con;
+    public function __construct(){
+        $this->con = new Connection();
     }
 
     public function GetAllNews(int $page){
-        $query="SELECT * FROM News LIMIT :Page, 10";
+        $query="SELECT * FROM news LIMIT :Page, 10";
 
         $this->con->executeQuery($query, array(
             ':Page' => array(($page-1)*10, PDO::PARAM_INT)
@@ -25,7 +25,7 @@ class NewsGateway {
     }
 
     public function GetNewsByKeyWord(string $keyword){
-        $query="SELECT * FROM News WHERE Title REGEXP :Regex OR Description REGEXP :Regex";
+        $query="SELECT * FROM news WHERE Title REGEXP :Regex OR Description REGEXP :Regex";
 
         $this->con->executeQuery($query, array(
             ':Regex' => array($keyword, PDO::PARAM_STR)
@@ -35,7 +35,7 @@ class NewsGateway {
     }
 
     public function getNbNews() {
-        $query="SELECT COUNT(*) FROM News";
+        $query="SELECT COUNT(*) FROM news";
 
         $this->con->executeQuery($query);
 
@@ -44,7 +44,7 @@ class NewsGateway {
 
     public function Insert($title, $description, $link, $guid, $pubDate, $category){
 
-        $query="INSERT INTO News VALUES (:Title,:Description,:Link,:Guid, :PubDate, :Category)";
+        $query="INSERT INTO news VALUES (:Title,:Description,:Link,:Guid, :PubDate, :Category)";
 
         $this->con->executeQuery($query, array(
             ':Title' => array($title, PDO::PARAM_STR),
@@ -59,7 +59,7 @@ class NewsGateway {
     }
 
     public function Update($title, $description, $link, $guid, $pubDate, $category){
-        $query="UPDATE News SET Title=:Title,Description=:Description,Link=:Link,Guid=:Guid, PubDate=:PubDate,Category=:Category)";
+        $query="UPDATE news SET Title=:Title,Description=:Description,Link=:Link,Guid=:Guid, PubDate=:PubDate,Category=:Category)";
 
         return $this->con->executeQuery($query, array(
             ':Title' => array($title, PDO::PARAM_STR),
@@ -72,7 +72,7 @@ class NewsGateway {
     }
 
     public function Delete($title){
-        $query="DELETE FROM News WHERE Title=:Title";
+        $query="DELETE FROM news WHERE Title=:Title";
 
         return $this->con->executeQuery($query, array(
             ':Title' => array($title, PDO::PARAM_STR)

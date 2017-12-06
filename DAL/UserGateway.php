@@ -2,7 +2,7 @@
 
 /**
  * Created by PhpStorm.
- * user: adlenoir
+ * User: adlenoir
  * Date: 17/11/2017
  * Time: 14:19
  */
@@ -10,29 +10,29 @@
 class UserGateway {
     private $con;
 
-    public function __construct(Connection $con){
-        $this->con = $con;
+    public function __construct(){
+        $this->con = new Connection();
     }
 
     public function GetUser($username, $password){
-
-        $query='SELECT * FROM Users WHERE Username=:Username AND Password=:Password';
+        $query='SELECT * FROM users WHERE username=:username AND password=:password';
 
         $this->con->executeQuery($query, array(
-            ':Username'=>array($username, PDO::PARAM_STR),
-            ':Password'=>array($password, PDO::PARAM_STR)
+            ':username'=>array($username, PDO::PARAM_STR),
+            ':password'=>array($password, PDO::PARAM_STR)
         ));
 
-        return $this->con->getFirst();
+        $admin = $this->con->getFirst();
+        return $admin == false ? null : new User($admin['username'],$admin['password']);
     }
 
     public function Insert($username, $password){
 
-      $query='INSERT INTO Users VALUES(:Username, :Password)';
+      $query='INSERT INTO users VALUES(:username, :password)';
 
       $this->con->executeQuery($query, array(
-          ':Username' => array($username, PDO::PARAM_STR),
-          ':Password' => array($password, PDO::PARAM_STR)
+          ':username' => array($username, PDO::PARAM_STR),
+          ':password' => array($password, PDO::PARAM_STR)
       ));
 
       return $this->con->lastInsertId();
@@ -40,20 +40,20 @@ class UserGateway {
 
     public function Update($username, $password){
 
-      $query= 'UPDATE Users SET Username=:Username, Password=:Password';
+      $query= 'UPDATE users SET username=:username, password=:password';
 
       return $this->con->executeQuery($query, array(
-          ':Username' => array($username, PDO::PARAM_STR),
-          ':Password' => array($password, PDO::PARAM_STR)
+          ':username' => array($username, PDO::PARAM_STR),
+          ':password' => array($password, PDO::PARAM_STR)
       ));
     }
 
     public function Delete($username){
 
-      $query= 'DELETE FROM Users WHERE Username=:Username';
+      $query= 'DELETE FROM users WHERE username=:username';
 
       return $this->con->executeQuery($query, array(
-          ':Username' => array($username, PDO::PARAM_STR)
+          ':username' => array($username, PDO::PARAM_STR)
       ));
     }
 }
