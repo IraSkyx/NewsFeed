@@ -20,7 +20,7 @@ $views['home']='views/Home.php';
 $views['404']='views/404.php';
 $views['news']='views/News.php';
 
-$contents['head']='views/Contents/Head.php';
-$contents['header']='views/Contents/Header.php';
-$contents['scripts']='views/Contents/Scripts.php';
-$contents['footer']='views/Contents/Footer.php';
+$contents['head']='views/contents/Head.php';
+$contents['header']='views/contents/Header.php';
+$contents['scripts']='views/contents/Scripts.php';
+$contents['footer']='views/contents/Footer.php';

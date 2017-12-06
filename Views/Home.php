@@ -28,14 +28,6 @@
                 </div>
               </div>
             </a>';
-
-            /*echo'<div class="row justify-content-center">';
-            if($page>1)
-               echo '<a class="numPage" href="index.php?page=' . ($page-1) .'"><</a>';
-            echo '<a class="numPage" href="index.php?page='.$page.'">'.$page.'</a>';
-            if($page<$nbNews-1)
-               echo '<a class="numPage" href="index.php?page='. ($page+1) .'">></a>';
-            echo '</div>';*/
         }
         else
           echo '<div class="row justify-content-center"><h1>Aucun résultat pour votre recherche</h1></div>';

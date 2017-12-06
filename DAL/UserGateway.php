@@ -10,18 +10,20 @@
 class UserGateway {
     private $con;
 
-    public function __construct(Connexion $con){
-      $this->con=$con;
+    public function __construct(Connection $con){
+        $this->con = $con;
     }
 
     public function GetUser($username, $password){
 
         $query='SELECT * FROM Users WHERE Username=:Username AND Password=:Password';
 
-        return $this->con->executeQuery($query, array(
+        $this->con->executeQuery($query, array(
             ':Username'=>array($username, PDO::PARAM_STR),
             ':Password'=>array($password, PDO::PARAM_STR)
         ));
+
+        return $this->con->getFirst();
     }
 
     public function Insert($pseudo, $mdp, $role){

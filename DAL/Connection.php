@@ -39,7 +39,7 @@ class Connection extends PDO {
    	return $this->stmt->fetchAll();
   }
 
-  public function getResult() {
+  public function getFirst() {
    	return $this->stmt->fetch();
   }
 }

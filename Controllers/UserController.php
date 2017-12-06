@@ -1,35 +1,42 @@
 <?php
 
-error_reporting(E_ERROR);
+error_reporting(E_ALL & ~E_NOTICE);
 
 class UserController {
 
-	function __construct() {
+	function __construct($action) {
 		global $rep,$views,$contents;
 		$errors = array();
+		$action=Cleaner::cleanString($action);
 
 		try {
-			$action=$_REQUEST['action'];
 
 			switch($action) {
 
 				case NULL:
-					$this->DisplayAllNews();
+					$this->displayAllNews();
 					break;
-
 
 				case "search":
-					$this->Search();
+					$this->search();
 					break;
+
+				case "login":
+					$this->login();
+					break;
+
+				case "signin":
+					$this->signIn();
+					break;
+
+				case "logoff":
+				$this->logOff();
+				break;
 
 				default:
 					$errors[] =	"Bad request";
 					require ($rep.$views['error']);
 			}
-		}
-		catch (PDOException $ex) {
-			$errors[] =	"Database error " . $ex;
-			require ($rep.$views['error']);
 		}
 		catch (Exception $e){
 			$errors[] =	"Error : " . $e;
@@ -38,19 +45,41 @@ class UserController {
 		exit(0);
 	}
 
-	private function Search(){
+	private function login(){
 		global $rep,$views,$contents;
-		$keyWord=Cleaner::CleanString($_POST['keyWord']);
-		$allNews=Model::getNewsByKeyWord($keyWord);
-		$nbNews=count($allNews);
-		require($rep.$views['home']);
+		require($rep.$views['login']);
 	}
 
-	private function DisplayAllNews(){
+	private function signIn(){
+		global $rep,$views,$contents;
+		if(isset($_POST['inputUsername']) && isset($_POST['inputPassword'])){
+			$username=Cleaner::CleanString($_POST['inputUsername']);
+			$password=Cleaner::CleanString($_POST['inputPassword']);
+			if(UserModel::login($username, $password))
+					header('Location: index.php');
+			$wrong=true;
+			require($rep.$views['login']);
+		}
+
+	}
+
+	private function search(){
+		global $rep,$views,$contents;
+		if(isset($_POST['keyWord']) && !empty($_POST['keyWord'])){
+			$keyWord=Cleaner::CleanString($_POST['keyWord']);
+			$allNews=UserModel::getNewsByKeyWord($keyWord);
+			$nbNews=count($allNews);
+			require($rep.$views['home']);
+		}
+		else
+			header('Location: index.php');
+	}
+
+	private function displayAllNews(){
 			global $rep,$views,$contents;
 			$page=Cleaner::CleanInt($_GET['page']);
-			$allNews = Model::getAllNews($page);
-			$nbNews = Model::getNbNews();
+			$allNews = UserModel::getAllNews($page);
+			$nbNews = UserModel::getNbNews();
 			require($rep.$views['home']);
 	}
 }

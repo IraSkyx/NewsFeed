@@ -1,6 +1,10 @@
+html, body {
+    height:100%;
+}
+
 body {
+  min-height:100%;
   margin:0;
-  overflow:hidden;
   padding-top: 5rem;
 }
 
@@ -37,4 +41,20 @@ h3{
 .shadow {
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   margin:1em;
+}
+
+.btn-outline-secondary, .btn-outline-secondary:hover{
+  background-color:#181d23;
+}
+
+.form-control:focus {
+  border-color: grey;
+}
+
+.inputMargin {
+  margin:1em;
+}
+
+.bg-inverse {
+  background-color: #181d23;
 }

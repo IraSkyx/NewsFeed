@@ -5,18 +5,30 @@
    </button>
    <a class="navbar-brand" href="index.php">News Feed</a>
 
-   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+   <div class="collapse navbar-collapse">
      <ul class="navbar-nav mr-auto">
 
-       <li class="nav-item active">
+       <!--<li class="nav-item active">
          <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
-       </li>
+       </li>-->
 
      </ul>
      <form class="form-inline my-2 my-lg-0" method="post" action="index.php?action=search">
-       <input class="form-control mr-sm-2" name="keyWord" type="text" placeholder="Search">
-       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+       <input class="form-control mr-sm-2" name="keyWord" type="text" placeholder="&#xf002; Search" style="font-family:Arial, FontAwesome" >
      </form>
+     <?php
+      if(isset($admin))
+      echo '<form class="form-inline my-2 my-lg-0" method="post" action="index.php?action=login">
+              <h3>Welcome'.$admin['username'].'</h3>
+              <button class="btn btn-outline-secondary my-2 my-sm-0">Log off</button>
+            </form>';
+      else
+        echo '<form class="form-inline my-2 my-lg-0" method="post" action="index.php?action=logoff">
+                <button class="btn btn-outline-secondary my-2 my-sm-0">Log in</button>
+              </form>';
+
+     ?>
+
    </div>
  </nav>
 </header>

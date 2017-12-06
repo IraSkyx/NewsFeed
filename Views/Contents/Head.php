@@ -7,5 +7,5 @@
   <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
   <!--   Custom CSS Files   -->
-  <link type="text/css" rel="stylesheet" href="Views/Css/NewsFeed.css">
+  <link type="text/css" rel="stylesheet" href="views/css/NewsFeed.css">
 </head>

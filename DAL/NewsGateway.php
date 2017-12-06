@@ -21,7 +21,7 @@ class NewsGateway {
             ':Page' => array(($page-1)*10, PDO::PARAM_INT)
         ));
 
-        return $this->con->GetResults();
+        return $this->con->getResults();
     }
 
     public function GetNewsByKeyWord(string $keyword){
@@ -31,7 +31,7 @@ class NewsGateway {
             ':Regex' => array($keyword, PDO::PARAM_STR)
         ));
 
-        return $this->con->GetResults();
+        return $this->con->getResults();
     }
 
     public function getNbNews() {
@@ -39,7 +39,7 @@ class NewsGateway {
 
         $this->con->executeQuery($query);
 
-        return ($this->con->getResult())['COUNT(*)'];
+        return ($this->con->getFirst())['COUNT(*)'];
     }
 
     public function Insert($title, $description, $link, $guid, $pubDate, $category){
