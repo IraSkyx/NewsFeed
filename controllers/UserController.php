@@ -30,8 +30,8 @@ class UserController {
 					break;
 
 				case "logoff":
-				$this->logoff();
-				break;
+                    $this->logoff();
+                    break;
 
 				default:
 					$errors[] =	"Bad request";

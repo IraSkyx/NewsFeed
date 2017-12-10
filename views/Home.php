@@ -6,7 +6,7 @@
   <?php include($rep.$contents['head']) ?>
   <body>
 
-    <?php include($rep.$contents['header']) ?>
+  <?php include($rep.$contents['header']) ?>
 
    <div class="container">
 

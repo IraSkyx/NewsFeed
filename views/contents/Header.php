@@ -16,18 +16,20 @@
      <form class="form-inline my-2 my-lg-0" method="post" action="index.php?action=search">
        <input class="form-control mr-sm-2" name="keyWord" type="text" placeholder="&#xf002; Search" style="font-family:Arial, FontAwesome" >
      </form>
+
      <?php
-     if(isset($GLOBALS['admin']) && $GLOBALS['admin'] != null){
-       echo $GLOBALS['admin'];
+     if(isset($_GLOBALS['admin'])){
+       echo $_GLOBALS['admin'];
        echo '<form class="form-inline my-2 my-lg-0" method="post" action="index.php?action=logout">
-               <button class="btn btn-outline-secondary my-2 my-sm-0">Logout</button>
+               <button class="btn btn-outline-secondary my-2 my-sm-0">Log out</button>
              </form>';
      }
 
-     else
-        echo '<form class="form-inline my-2 my-lg-0" method="post" action="index.php?action=login">
+     else {
+         echo '<form class="form-inline my-2 my-lg-0" method="post" action="index.php?action=login">
                 <button class="btn btn-outline-secondary my-2 my-sm-0">Log in</button>
               </form>';
+     }
      ?>
 
    </div>
