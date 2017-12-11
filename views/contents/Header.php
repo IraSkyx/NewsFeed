@@ -8,9 +8,12 @@
    <div class="collapse navbar-collapse">
      <ul class="navbar-nav mr-auto">
 
-       <!--<li class="nav-item active">
-         <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
-       </li>-->
+       <?php
+       if(isset($admin))
+         echo '<li class="nav-item active">
+                  <a class="nav-link" href="index.php?action=addFlux">Home</a>
+              </li>';
+       ?>
 
      </ul>
      <form class="form-inline my-2 my-lg-0" method="post" action="index.php?action=search">
@@ -18,18 +21,15 @@
      </form>
 
      <?php
-     if(isset($_GLOBALS['admin'])){
-       echo $_GLOBALS['admin'];
+     if(isset($admin))
        echo '<form class="form-inline my-2 my-lg-0" method="post" action="index.php?action=logout">
                <button class="btn btn-outline-secondary my-2 my-sm-0">Log out</button>
              </form>';
-     }
 
-     else {
+     else
          echo '<form class="form-inline my-2 my-lg-0" method="post" action="index.php?action=login">
                 <button class="btn btn-outline-secondary my-2 my-sm-0">Log in</button>
               </form>';
-     }
      ?>
 
    </div>

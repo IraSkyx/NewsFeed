@@ -2,16 +2,17 @@
 
 $rep=__DIR__.'/../';
 
+$admin=NULL;
 
 //Config Adrien
-//$dsn="mysql:host=localhost;dbname=dbadlenoir";
-//$login="root";
-//$password="";
-
-//Config Gabin
 $dsn="mysql:host=localhost;dbname=dbadlenoir";
 $login="root";
-$password="root";
+$password="";
+
+//Config Gabin
+//$dsn="mysql:host=localhost;dbname=dbadlenoir";
+//$login="root";
+//$password="root";
 
 //Config IUT
 //$dsn="mysql:host=hina;dbname=dbadlenoir";

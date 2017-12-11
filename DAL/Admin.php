@@ -7,12 +7,12 @@
  * Time: 14:14
  */
 
-class User {
+class Admin {
     private $username;
     private $password;
 
     /**
-     * User constructor.
+     * Admin constructor.
      * @param $username
      * @param $password
      */

@@ -21,6 +21,10 @@ class AdminController extends UserController {
 					$this->displayAllNews();
 					break;
 
+				case "addFlux":
+					$this->addFlux();
+					break;
+
 				case "logout":
 					$this->logout();
 					break;
@@ -41,5 +45,10 @@ class AdminController extends UserController {
 		global $rep,$views,$contents;
 		AdminModel::disconnect();
 		$this->displayAllNews();
+	}
+
+	private function addFlux() {
+		global $rep,$views,$contents;
+		//To be implemented
 	}
 }

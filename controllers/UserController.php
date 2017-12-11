@@ -7,7 +7,6 @@ class UserController {
 	function __construct($action) {
 		global $rep,$views,$contents;
 		$errors = array();
-		$action=Cleaner::CleanString($action);
 
 		try {
 
@@ -29,10 +28,6 @@ class UserController {
 					$this->signin();
 					break;
 
-				case "logoff":
-                    $this->logoff();
-                    break;
-
 				default:
 					$errors[] =	"Bad request";
 					require($rep.$views['error']);
@@ -45,17 +40,16 @@ class UserController {
 		exit(0);
 	}
 
-	private function login() {
-		global $rep,$views,$contents;
+	private function login() : void {
+		global $rep,$views,$contents, $admin;
 		require($rep.$views['login']);
 	}
 
-	private function signin() {
-		global $rep,$views,$contents;
+	private function signin() : void {
+		global $rep,$views,$contents, $admin;
 		if(isset($_POST['inputUsername']) && isset($_POST['inputPassword'])){
 
-			$admin=AdminModel::connect($_POST['inputUsername'], $_POST['inputPassword']);
-			if($admin == null) {
+			if(AdminModel::connect($_POST['inputUsername'], $_POST['inputPassword']) == false) {
 				$wrong=true;
 				require($rep.$views['login']);
 			}
@@ -64,8 +58,8 @@ class UserController {
 		}
 	}
 
-	private function search() {
-		global $rep,$views,$contents;
+	private function search() : void {
+		global $rep,$views,$contents, $admin;
 		if(isset($_POST['keyWord']) && !empty($_POST['keyWord'])){
 			$keyWord=Cleaner::CleanString($_POST['keyWord']);
 			$allNews=UserModel::getNewsByKeyWord($keyWord);
@@ -76,8 +70,8 @@ class UserController {
 			header('Location: index.php');
 	}
 
-	protected function displayAllNews() {
-			global $rep,$views,$contents;
+	protected function displayAllNews() : void {
+			global $rep,$views,$contents, $admin;
 			$page=Cleaner::CleanInt($_GET['page']);
 			$allNews = UserModel::getAllNews($page);
 			$nbNews = UserModel::getNbNews();
