@@ -29,19 +29,19 @@
               </div>
             </a>';
             $nbNewsPerPage=5;
-            $nbPageAfterCurrent=5;
-
-            $limitMin= $page-$nbPageAfterCurrent <= 0 ? $page-1 : $nbPageAfterCurrent;
-            $limitMax= $page+$nbPageAfterCurrent > ceil($nbNews / $nbNewsPerPage) ? (ceil($nbNews / $nbNewsPerPage)-$page) : $nbPageAfterCurrent;
+            $nbPageBeforeAndAfterCurrent=5;
+            $request=isset($_POST['keyWord']) ? 'action=search&' : '';
+            $limitMin= $page-$nbPageBeforeAndAfterCurrent <= 0 ? $page-1 : $nbPageBeforeAndAfterCurrent;
+            $limitMax= $page+$nbPageBeforeAndAfterCurrent > ceil($nbNews / $nbNewsPerPage) ? (ceil($nbNews / $nbNewsPerPage)-$page) : $nbPageBeforeAndAfterCurrent;
             echo '<div class="row justify-content-center">
                   <h3>Page : </h3>';
             for ($i = ($page-$limitMin); $i < $page; $i++)
                echo '<a href="index.php?page=' . $i . '"><h5>' . $i . '</h5></a> ';
             for ($i = $page ; $i <= ($page+$limitMax); $i++){
               if($i == $page)
-                echo '<a href="index.php?page=' . $i . '"><h5><strong>' . $i . '</strong></h5></a> ';
+                echo '<a href="index.php?'.$request.'page=' . $i . '"><h5><strong>' . $i . '</strong></h5></a> ';
               else
-                echo '<a href="index.php?page=' . $i . '"><h5>' . $i . '</h5></a> ';
+                echo '<a href="index.php?'.$request.'page=' . $i . '"><h5>' . $i . '</h5></a> ';
             }
             echo '</div>';
         }

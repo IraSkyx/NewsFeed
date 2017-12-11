@@ -10,7 +10,11 @@ class UserModel {
     return (new NewsGateway())->getNbNews();
   }
 
-  public static function getNewsByKeyWord(string $keyword) : array {
-    return (new NewsGateway())->GetNewsByKeyWord($keyword);
+  public static function getNewsByKeyWord(string $keyword, int $page) : array {
+    return (new NewsGateway())->GetNewsByKeyWord($keyword, $page);
+  }
+
+  public static function getNbNewsByKeyword(string $keyWord) : int {
+    return (new NewsGateway())->getNbNewsByKeyword($keyWord);
   }
 }

@@ -25,6 +25,10 @@ class AdminController extends UserController {
 					$this->addFlux();
 					break;
 
+				case "search":
+					$this->search();
+					break;
+
 				case "logout":
 					$this->logout();
 					break;

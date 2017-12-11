@@ -8,12 +8,13 @@ class NewsGateway {
     }
 
     public function GetAllNews(int $page) {
+        $nbNewsPerpage=5;
         try {
-          $nbNewsPerpage=5;
-          $query="SELECT * FROM news LIMIT :Page,".$nbNewsPerpage;
+          $query="SELECT * FROM news LIMIT :Page,:NbNews";
 
           $this->con->executeQuery($query, array(
-              ':Page' => array(($page-1)*$nbNewsPerpage, PDO::PARAM_INT)
+              ':Page' => array(($page-1)*$nbNewsPerpage, PDO::PARAM_INT),
+              ':NbNews' => array($nbNewsPerpage, PDO::PARAM_INT)
           ));
 
           return $this->con->getResults();
@@ -23,12 +24,15 @@ class NewsGateway {
         }
     }
 
-    public function GetNewsByKeyWord(string $keyword) {
+    public function GetNewsByKeyWord(string $keyword, int $page) {
+        $nbNewsPerpage=5;
         try {
-          $query="SELECT * FROM news WHERE Title REGEXP :Regex OR Description REGEXP :Regex";
+          $query="SELECT * FROM news WHERE Title REGEXP :Regex OR Description REGEXP :Regex LIMIT :Page,:NbNews";
 
           $this->con->executeQuery($query, array(
-              ':Regex' => array($keyword, PDO::PARAM_STR)
+              ':Regex' => array($keyword, PDO::PARAM_STR),
+              ':Page' => array(($page-1)*$nbNewsPerpage, PDO::PARAM_INT),
+              ':NbNews' => array($nbNewsPerpage, PDO::PARAM_INT)
           ));
 
           return $this->con->getResults();
@@ -43,6 +47,21 @@ class NewsGateway {
           $query="SELECT COUNT(*) FROM news";
 
           $this->con->executeQuery($query);
+
+          return ($this->con->getFirst())['COUNT(*)'];
+        }
+        catch(PDOException $e) {
+          throw new Exception($e);
+        }
+    }
+
+    public function getNbNewsByKeyword(string $keyword) {
+        try {
+          $query="SELECT COUNT(*) FROM news WHERE Title REGEXP :Regex OR Description REGEXP :Regex";
+
+          $this->con->executeQuery($query, array(
+              ':Regex' => array($keyword, PDO::PARAM_STR)
+          ));
 
           return ($this->con->getFirst())['COUNT(*)'];
         }

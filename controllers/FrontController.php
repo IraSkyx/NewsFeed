@@ -4,7 +4,7 @@ error_reporting(E_ALL & ~E_NOTICE);
 
 class FrontController {
 
-  private $adminActions=array(NULL,'addFlux','logout');
+  private $adminActions=array(NULL,'addFlux','search','logout');
   private $usersActions=array(NULL,'login','search','signin');
 
   function __construct() {

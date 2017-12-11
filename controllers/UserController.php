@@ -58,12 +58,13 @@ class UserController {
 		}
 	}
 
-	private function search() : void {
+	protected function search() : void {
 		global $rep,$views,$contents, $admin;
 		if(isset($_POST['keyWord']) && !empty($_POST['keyWord'])){
+			$page=Cleaner::CleanInt($_GET['page']);
 			$keyWord=Cleaner::CleanString($_POST['keyWord']);
-			$allNews=UserModel::getNewsByKeyWord($keyWord);
-			$nbNews=count($allNews);
+			$allNews=UserModel::getNewsByKeyWord($keyWord, $page);
+			$nbNews = UserModel::getNbNewsByKeyword($keyWord);
 			require($rep.$views['home']);
 		}
 		else

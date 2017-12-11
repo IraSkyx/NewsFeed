@@ -1,6 +1,6 @@
 <header>
   <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
-   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
      <span class="navbar-toggler-icon"></span>
    </button>
    <a class="navbar-brand" href="index.php">News Feed</a>
@@ -17,7 +17,7 @@
 
      </ul>
      <form class="form-inline my-2 my-lg-0" method="post" action="index.php?action=search">
-       <input class="form-control mr-sm-2" name="keyWord" type="text" placeholder="&#xf002; Search" style="font-family:Roboto, FontAwesome" >
+       <input class="form-control mr-sm-2" name="keyWord" type="text" value="<?php echo isset($_POST['keyWord']) ? $_POST['keyWord'] : ''; ?>" placeholder="&#xf002; Search" style="font-family:Roboto, FontAwesome" >
      </form>
 
      <?php
