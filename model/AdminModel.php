@@ -23,10 +23,8 @@ class AdminModel {
 	}
 
 	public static function isAdmin() {
-			if(isset($_SESSION['username']) && isset($_SESSION['password'])){
-					       		$admin= new Admin(Cleaner::CleanString($_SESSION['username']), Cleaner::CleanString($_SESSION['password']));
-										echo $admin;
-			}
+			if(isset($_SESSION['username']) && isset($_SESSION['password']))
+				return new Admin(Cleaner::CleanString($_SESSION['username']), Cleaner::CleanString($_SESSION['password']));
 	    return null;
 	}
 }

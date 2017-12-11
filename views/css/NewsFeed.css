@@ -1,8 +1,15 @@
+@font-face {
+ font-family: "Roboto";
+ src: url("../fonts/Roboto-Light.ttf");
+}
+
 html, body {
     height:100%;
+    font-family: "Roboto";
 }
 
 body {
+  background-color: #e6ecf0;
   min-height:100%;
   margin:0;
   padding-top: 5rem;
@@ -21,20 +28,23 @@ h2{
 h3{
   color: #56585c;
   font-size: 1em;
+  margin:0.1em;
 }
 
 h4{
   color: #fff;
   font-size: 1em;
+  margin:0.5em;
+}
+
+h5{
+  color: #56585c;
+  font-size: 1em;
+  margin:0.1em;
 }
 
 .fa{
     margin: 0.5em;
-}
-
-.numPage{
-  margin: 1em;
-  font-size: 2em;
 }
 
 .row{
@@ -60,6 +70,11 @@ h4{
   margin:1em;
 }
 
+button{
+  font-family: "Roboto";
+}
+
 .bg-inverse {
-  background-color: #181d23;
+  background-color: #fff;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }

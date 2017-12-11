@@ -4,7 +4,7 @@ error_reporting(E_ALL & ~E_NOTICE);
 
 class FrontController {
 
-  private $adminActions=array('addFlux','logout');
+  private $adminActions=array(NULL,'addFlux','logout');
   private $usersActions=array(NULL,'login','search','signin');
 
   function __construct() {
@@ -15,8 +15,7 @@ class FrontController {
 
       if(in_array($action, $this->adminActions)){
           $admin = AdminModel::isAdmin();
-          var_dump($admin);
-          if($admin == NULL)
+          if($admin == NULL && $action != NULL)
             new UserController('login');
           else
             new AdminController($action);
