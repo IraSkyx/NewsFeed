@@ -28,7 +28,7 @@
                 </div>
               </div>
             </a>';
-            $nbNewsPerPage=5;
+            $nbNewsPerPage=1;
             $nbPageBeforeAndAfterCurrent=5;
             $request=isset($_POST['keyWord']) ? 'action=search&' : '';
             $limitMin= $page-$nbPageBeforeAndAfterCurrent <= 0 ? $page-1 : $nbPageBeforeAndAfterCurrent;

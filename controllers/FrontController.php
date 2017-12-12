@@ -15,7 +15,7 @@ class FrontController {
 
       if(in_array($action, $this->adminActions)){
           $admin = AdminModel::isAdmin();
-          if($admin == NULL && $action != NULL)
+          if($admin == NULL && !in_array($action, $this->adminActions))
             new UserController('login');
           else
             new AdminController($action);

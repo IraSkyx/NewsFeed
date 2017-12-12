@@ -8,7 +8,7 @@ class NewsGateway {
     }
 
     public function GetAllNews(int $page) {
-        $nbNewsPerpage=5;
+        $nbNewsPerpage=1;
         try {
           $query="SELECT * FROM news LIMIT :Page,:NbNews";
 
@@ -25,7 +25,7 @@ class NewsGateway {
     }
 
     public function GetNewsByKeyWord(string $keyword, int $page) {
-        $nbNewsPerpage=5;
+        $nbNewsPerpage=1;
         try {
           $query="SELECT * FROM news WHERE Title REGEXP :Regex OR Description REGEXP :Regex LIMIT :Page,:NbNews";
 
