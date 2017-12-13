@@ -34,17 +34,18 @@
               <div class="col-md-6 offset-md-3 d-flex justify-content-center align-items-center">
                 <h3>Page : </h3>';
               for ($i = ($page-$limitMin); $i < $page; $i++)
-                 echo '<a href="index.php?page=' . $i . '"><h5>' . $i . '</h5></a> ';
+                 echo '<a href="index.php?'.$request.'page=' . $i . '"><h5>' . $i . '</h5></a> ';
               for ($i = $page ; $i <= ($page+$limitMax); $i++){
                 if($i == $page)
-                  echo '<a href="index.php?page=' . $i . '"><h5><strong>' . $i . '</strong></h5></a> ';
+                  echo '<a href="index.php?'.$request.'page=' . $i . '"><h5><strong>' . $i . '</strong></h5></a> ';
                 else
-                  echo '<a href="index.php?page=' . $i . '"><h5>' . $i . '</h5></a> ';
+                  echo '<a href="index.php?'.$request.'page=' . $i . '"><h5>' . $i . '</h5></a> ';
               }
               echo '</div>
               <div class="col-md-3 d-flex justify-content-center align-items-center">
                 <h3>Go to page : </h3>
                 <form id="goToPage" class="form-inline my-2 my-lg-0" style="width:30%">
+                  <input id="request" type="hidden" name="action" value="'.$request.'" />
                   <input id="goToPageNb" class="form-control mr-sm-2" type="text" style="width:100%;margin:0.3em;">
                 </form>
               </div>

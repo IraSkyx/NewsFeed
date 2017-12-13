@@ -32,9 +32,12 @@
             if(count($allFlux)>0){
               foreach ($allFlux as $flux)
               echo '<tr>
-                      <td>' . $flux['name'] . '</td>
-                      <td>' . $flux['link'] . '</td>
-                      <td class="d-flex justify-content-center"><a href="index.php?action=deleteFlux&link='. $flux['link'] .'"><i class="fa fa-ban" aria-hidden="true"></i></a></td>
+                      <form class="form-inline my-2 my-lg-0" method="post" action="index.php?action=updateFlux">
+                        <td><input class="form-control mr-sm-2" name="name" value="'.$flux['name'].'" type="text"></td>
+                        <td><input class="form-control mr-sm-2" name="name" value="'.$flux['link'].'" type="text"></td>
+                        <td><input class="form-control mr-sm-2" name="name" type="submit"></td>
+                        <td class="d-flex justify-content-center"><a href="index.php?action=deleteFlux&link='. $flux['link'] .'"><i class="fa fa-ban" aria-hidden="true"></i></a></td>
+                      </form>
                     </tr>';
             }
             else

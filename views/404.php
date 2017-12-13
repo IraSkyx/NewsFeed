@@ -7,15 +7,15 @@
           <div class="col-md-12">
               <div class="error-template justify-content-center" style="text-align:center;">
                   <h1>
-                      Oups !</h1>
+                      Oops !</h1>
                   <h2 style="text-align:center;">
-                      404 Page introuvable</h2>
+                      404 Not Found</h2>
                   <div class="error-details">
-                      Désolé, une erreur s'est produite, la page demandée n'a pas été trouvée !
+                      Sorry, an error has occured , the requested page could not be found !
                   </div>
                   <div class="error-actions">
                       <a href="index.php" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-home"></span>
-                          Retour à l'accueil </a>
+                          Back to Home </a>
                   </div>
               </div>
           </div>

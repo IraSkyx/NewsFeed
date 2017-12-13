@@ -15,11 +15,11 @@ class Admin {
         $this->password=$password;
     }
 
-    function getUsername() {
+    function getUsername() : ?string {
         return $this->username;
     }
 
-    function getPassword() {
+    function getPassword() : ?string {
         return $this->password;
     }
 }

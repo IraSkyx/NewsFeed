@@ -16,8 +16,9 @@
        ?>
 
      </ul>
-     <form class="form-inline my-2 my-lg-0" method="post" action="index.php?action=search">
-       <input class="form-control mr-sm-2" id="search" name="keyWord" type="text" value="<?php echo isset($_POST['keyWord']) ? $_POST['keyWord'] : ''; ?>" placeholder="&#xf002; Search" style="font-family:Roboto, FontAwesome" >
+     <form class="form-inline my-2 my-lg-0" method="GET" action="index.php">
+       <input type="hidden" name="action" value="search" />
+       <input class="form-control mr-sm-2" id="search" name="keyWord" type="text" value="<?php echo isset($_GET['keyWord']) ? $_GET['keyWord'] : ''; ?>" placeholder="&#xf002; Search" style="font-family:Roboto, FontAwesome" >
      </form>
 
      <?php
