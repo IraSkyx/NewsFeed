@@ -38,7 +38,7 @@ class FluxGateway {
 
     public function Update($name, $link) {
         try {
-          $query="UPDATE flux SET name=:Name,link=:Link)";
+          $query="UPDATE flux SET name=:Name WHERE link=:Link";
 
           return $this->con->executeQuery($query, array(
               ':Name' => array($name, PDO::PARAM_STR),

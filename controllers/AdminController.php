@@ -26,7 +26,7 @@ class AdminController extends UserController {
 					break;
 
 				case "updateFlux":
-					$this->addFlux();
+					$this->updateFlux();
 					break;
 
 				case "deleteFlux":
@@ -74,6 +74,7 @@ class AdminController extends UserController {
 			}
 			catch(Exception $e) {
 				$exists=true;
+                $allFlux=AdminModel::getAllFlux();
 				require($rep.$views['viewFlux']);
 			}
 			header('Location: index.php?action=viewFlux');
@@ -82,7 +83,10 @@ class AdminController extends UserController {
 
 	private function updateFlux() {
 		global $rep,$views,$contents,$admin;
-		//To be done
+		if (isset($_POST['name']) && isset($_POST['link']) && !empty($_POST['name']) && !empty($_POST['link'])){
+		    AdminModel::updateFlux($_POST['name'], $_POST['link']);
+            header('Location: index.php?action=viewFlux');
+        }
 	}
 
 	private function deleteFlux() {
