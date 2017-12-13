@@ -4,16 +4,16 @@ error_reporting(E_ALL & ~E_NOTICE);
 
 class FrontController {
 
-  private $adminActions=array(NULL,'addFlux','search','logout');
   private $usersActions=array(NULL,'login','search','signin');
+  private $adminActions=array(NULL,'logout','search','viewFlux','addFlux','updateFlux','deleteFlux');
 
   function __construct() {
     global $rep,$views,$contents,$admin;
 
-    try{
+    try {
       $action = Cleaner::CleanString($_REQUEST['action']);
 
-      if(in_array($action, $this->adminActions)){
+      if(in_array($action, $this->adminActions)) {
           $admin = AdminModel::isAdmin();
           if($admin == NULL && !in_array($action, $this->adminActions))
             new UserController('login');
@@ -21,12 +21,12 @@ class FrontController {
             new AdminController($action);
       }
       else if(in_array($action,$this->usersActions))
-        new UserController($action);
+          new UserController($action);
 
       else
         require($rep.$views['404']);
     }
-    catch(Exception $e){
+    catch(Exception $e) {
       $errors[] =	"Error : " . $e;
 			require($rep.$views['error']);
     }

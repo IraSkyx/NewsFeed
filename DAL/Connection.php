@@ -1,11 +1,6 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: adlenoir
- * Date: 17/11/2017
- * Time: 15:14
- */
+error_reporting(E_ALL & ~E_NOTICE);
 
 class Connection extends PDO {
 

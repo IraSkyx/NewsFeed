@@ -1,12 +1,5 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: adlenoir
- * Date: 17/11/2017
- * Time: 14:14
- */
-
 class Admin {
     private $username;
     private $password;

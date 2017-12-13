@@ -11,7 +11,7 @@
    <div class="container">
 
        <?php
-        if(count($allNews)>0){
+        if(count($allNews)>0) {
           foreach ($allNews as $article)
             echo '
             <a href="'.$article['Link'].'">
@@ -28,22 +28,28 @@
                 </div>
               </div>
             </a>';
-            $nbNewsPerPage=1;
-            $nbPageBeforeAndAfterCurrent=5;
-            $request=isset($_POST['keyWord']) ? 'action=search&' : '';
-            $limitMin= $page-$nbPageBeforeAndAfterCurrent <= 0 ? $page-1 : $nbPageBeforeAndAfterCurrent;
-            $limitMax= $page+$nbPageBeforeAndAfterCurrent > ceil($nbNews / $nbNewsPerPage) ? (ceil($nbNews / $nbNewsPerPage)-$page) : $nbPageBeforeAndAfterCurrent;
-            echo '<div class="row justify-content-center">
-                  <h3>Page : </h3>';
-            for ($i = ($page-$limitMin); $i < $page; $i++)
-               echo '<a href="index.php?page=' . $i . '"><h5>' . $i . '</h5></a> ';
-            for ($i = $page ; $i <= ($page+$limitMax); $i++){
-              if($i == $page)
-                echo '<a href="index.php?'.$request.'page=' . $i . '"><h5><strong>' . $i . '</strong></h5></a> ';
-              else
-                echo '<a href="index.php?'.$request.'page=' . $i . '"><h5>' . $i . '</h5></a> ';
+
+            if(Validation::AreSet(array($page,$limitMin,$limitMax))) {
+              echo '<div class="row">
+              <div class="col-md-6 offset-md-3 d-flex justify-content-center align-items-center">
+                <h3>Page : </h3>';
+              for ($i = ($page-$limitMin); $i < $page; $i++)
+                 echo '<a href="index.php?page=' . $i . '"><h5>' . $i . '</h5></a> ';
+              for ($i = $page ; $i <= ($page+$limitMax); $i++){
+                if($i == $page)
+                  echo '<a href="index.php?page=' . $i . '"><h5><strong>' . $i . '</strong></h5></a> ';
+                else
+                  echo '<a href="index.php?page=' . $i . '"><h5>' . $i . '</h5></a> ';
+              }
+              echo '</div>
+              <div class="col-md-3 d-flex justify-content-center align-items-center">
+                <h3>Go to page : </h3>
+                <form id="goToPage" class="form-inline my-2 my-lg-0" style="width:30%">
+                  <input id="goToPageNb" class="form-control mr-sm-2" type="text" style="width:100%;margin:0.3em;">
+                </form>
+              </div>
+              </div>';
             }
-            echo '</div>';
         }
         else
           echo '<div class="row justify-content-center"><h1>Aucun résultat pour votre recherche</h1></div>';

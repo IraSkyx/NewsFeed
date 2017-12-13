@@ -11,13 +11,13 @@
        <?php
        if(isset($admin))
          echo '<li class="nav-item active">
-                  <a class="nav-link" href="index.php?action=addFlux">Add RSS</a>
+                  <a class="nav-link" href="index.php?action=viewFlux">Add RSS</a>
               </li>';
        ?>
 
      </ul>
      <form class="form-inline my-2 my-lg-0" method="post" action="index.php?action=search">
-       <input class="form-control mr-sm-2" name="keyWord" type="text" value="<?php echo isset($_POST['keyWord']) ? $_POST['keyWord'] : ''; ?>" placeholder="&#xf002; Search" style="font-family:Roboto, FontAwesome" >
+       <input class="form-control mr-sm-2" id="search" name="keyWord" type="text" value="<?php echo isset($_POST['keyWord']) ? $_POST['keyWord'] : ''; ?>" placeholder="&#xf002; Search" style="font-family:Roboto, FontAwesome" >
      </form>
 
      <?php

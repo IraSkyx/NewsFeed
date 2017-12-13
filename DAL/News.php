@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: adlenoir
- * Date: 15/11/17
- * Time: 14:06
- */
 class News {
 
     private $title;

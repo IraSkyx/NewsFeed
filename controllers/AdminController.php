@@ -1,11 +1,7 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: adlenoir
- * Date: 29/11/17
- * Time: 14:08
- */
+error_reporting(E_ALL & ~E_NOTICE);
+
 class AdminController extends UserController {
 
 	function __construct($action) {
@@ -21,8 +17,20 @@ class AdminController extends UserController {
 					$this->displayAllNews();
 					break;
 
+				case "viewFlux":
+					$this->viewFlux();
+					break;
+
 				case "addFlux":
 					$this->addFlux();
+					break;
+
+				case "updateFlux":
+					$this->addFlux();
+					break;
+
+				case "deleteFlux":
+					$this->deleteFlux();
 					break;
 
 				case "search":
@@ -48,11 +56,40 @@ class AdminController extends UserController {
 	private function logout() {
 		global $rep,$views,$contents;
 		AdminModel::disconnect();
-		$this->displayAllNews();
+		header('Location: index.php');
+	}
+
+	private function viewFlux() {
+		global $rep,$views,$contents,$admin;
+		$allFlux=AdminModel::getAllFlux();
+		require($rep.$views['viewFlux']);
 	}
 
 	private function addFlux() {
-		global $rep,$views,$contents;
-		//To be implemented
+		global $rep,$views,$contents,$admin;
+		$args=array($_POST['name'], $_POST['link']);
+		if(Validation::AreSet($args) && Validation::AreNotEmpty($args) ){
+			try {
+				AdminModel::addFlux($_POST['name'],$_POST['link']);
+			}
+			catch(Exception $e) {
+				$exists=true;
+				require($rep.$views['viewFlux']);
+			}
+			header('Location: index.php?action=viewFlux');
+		}
+	}
+
+	private function updateFlux() {
+		global $rep,$views,$contents,$admin;
+		//To be done
+	}
+
+	private function deleteFlux() {
+		global $rep,$views,$contents,$admin;
+		if(isset($_GET['link']) && !empty($_GET['link'])){
+			AdminModel::deleteFlux($_GET['link']);
+			header('Location: index.php?action=viewFlux');
+		}
 	}
 }

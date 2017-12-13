@@ -14,7 +14,7 @@
                       Désolé, une erreur s'est produite, la page demandée n'a pas été trouvée !
                   </div>
                   <div class="error-actions">
-                      <a href="<?php $rep.$views['home'] ?>" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-home"></span>
+                      <a href="index.php" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-home"></span>
                           Retour à l'accueil </a>
                   </div>
               </div>

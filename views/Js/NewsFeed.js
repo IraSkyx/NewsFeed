@@ -2,12 +2,17 @@ $(document).ready(function() {
   $("time.timeago").timeago();
 });
 
-/*$('a').click(function(){
-  var page=1;
-  var keyword='test';
+$('#search').submit(function(){
+  var keyWord=$('#myKeyWord').val();
   $.ajax({
-    url: '../../index.php?action=search&page=2',
-    type: 'post',
-    data: { "keyword": keyword, "page": page }
+  url: 'index.php?action=search&keyWord=' + keyWord,
+  type: 'GET',
+  data: { "keyWord": keyWord }
   });
-});*/
+  event.preventDefault();
+});
+
+$('#goToPage').submit(function(){
+  window.location = "index.php?page=" + $('#goToPageNb').val();
+  event.preventDefault();
+});

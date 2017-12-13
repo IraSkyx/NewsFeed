@@ -27,4 +27,25 @@ class AdminModel {
 				return new Admin(Cleaner::CleanString($_SESSION['username']), Cleaner::CleanString($_SESSION['password']));
 	    return null;
 	}
+
+	public static function getAllFlux() : array {
+		return (new FluxGateway())->GetAllFlux();
+	}
+
+	public static function addFlux(string $name, string $link) {
+		$name=Cleaner::CleanString($name);
+		$link=Cleaner::CleanString($link);
+		return (new FluxGateway())->Insert($name,$link);
+	}
+
+	public static function updateFlux(string $name, string $link) {
+		$name=Cleaner::CleanString($name);
+		$link=Cleaner::CleanString($link);
+		return (new FluxGateway())->Update($name,$link);
+	}
+
+	public static function deleteFlux(string $link) {
+		$link=Cleaner::CleanString($link);
+		return (new FluxGateway())->Delete($link);
+	}
 }

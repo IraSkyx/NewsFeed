@@ -1,6 +1,6 @@
 <?php
 
-//error_reporting(E_ALL & ~E_NOTICE);
+error_reporting(E_ALL & ~E_NOTICE);
 
 class UserController {
 
@@ -40,12 +40,12 @@ class UserController {
 		exit(0);
 	}
 
-	private function login() : void {
+	protected function login() : void {
 		global $rep,$views,$contents, $admin;
 		require($rep.$views['login']);
 	}
 
-	private function signin() : void {
+	protected function signin() : void {
 		global $rep,$views,$contents, $admin;
 		if(isset($_POST['inputUsername']) && isset($_POST['inputPassword'])){
 
@@ -59,12 +59,18 @@ class UserController {
 	}
 
 	protected function search() : void {
-		global $rep,$views,$contents, $admin;
+		global $rep,$views,$contents, $admin,$nbNewsPerPage;
+
 		if(isset($_POST['keyWord']) && !empty($_POST['keyWord'])){
-			$page=Cleaner::CleanInt($_GET['page']);
+			$page=Cleaner::CleanInt($_POST['page']);
 			$keyWord=Cleaner::CleanString($_POST['keyWord']);
 			$allNews=UserModel::getNewsByKeyWord($keyWord, $page);
-			$nbNews = UserModel::getNbNewsByKeyword($keyWord);
+			$nbNews=UserModel::getNbNewsByKeyword($keyWord);
+
+			$nbPageBeforeAndAfterCurrent=5;
+			$limitMin= $page-$nbPageBeforeAndAfterCurrent <= 0 ? $page-1 : $nbPageBeforeAndAfterCurrent;
+			$limitMax= $page+$nbPageBeforeAndAfterCurrent > ceil($nbNews / $nbNewsPerPage) ? (ceil($nbNews / $nbNewsPerPage)-$page) : $nbPageBeforeAndAfterCurrent;
+
 			require($rep.$views['home']);
 		}
 		else
@@ -72,10 +78,15 @@ class UserController {
 	}
 
 	protected function displayAllNews() : void {
-			global $rep,$views,$contents, $admin;
+			global $rep,$views,$contents, $admin,$nbNewsPerPage;
 			$page=Cleaner::CleanInt($_GET['page']);
 			$allNews = UserModel::getAllNews($page);
 			$nbNews = UserModel::getNbNews();
+
+			$nbPageBeforeAndAfterCurrent=5;
+			$limitMin= $page-$nbPageBeforeAndAfterCurrent <= 0 ? $page-1 : $nbPageBeforeAndAfterCurrent;
+			$limitMax= $page+$nbPageBeforeAndAfterCurrent > ceil($nbNews / $nbNewsPerPage) ? (ceil($nbNews / $nbNewsPerPage)-$page) : $nbPageBeforeAndAfterCurrent;
+
 			require($rep.$views['home']);
 	}
 }

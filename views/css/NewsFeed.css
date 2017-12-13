@@ -43,6 +43,10 @@ h5{
   margin:0.1em;
 }
 
+.table-responsive{
+  overflow:hidden;
+}
+
 .fa{
     margin: 0.5em;
 }
