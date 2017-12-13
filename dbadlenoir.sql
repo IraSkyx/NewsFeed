@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 11 déc. 2017 à 23:41
+-- Généré le :  mer. 13 déc. 2017 à 00:22
 -- Version du serveur :  5.7.19
 -- Version de PHP :  7.1.9
 
@@ -41,6 +41,27 @@ CREATE TABLE IF NOT EXISTS `admins` (
 
 INSERT INTO `admins` (`username`, `password`) VALUES
 ('admin', 'c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `flux`
+--
+
+DROP TABLE IF EXISTS `flux`;
+CREATE TABLE IF NOT EXISTS `flux` (
+  `name` varchar(200) NOT NULL,
+  `link` varchar(200) NOT NULL,
+  PRIMARY KEY (`link`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `flux`
+--
+
+INSERT INTO `flux` (`name`, `link`) VALUES
+('test2', 'test2.com'),
+('test', 'test');
 
 -- --------------------------------------------------------
 
