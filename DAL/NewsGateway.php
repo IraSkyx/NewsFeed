@@ -7,35 +7,36 @@ class NewsGateway {
         $this->con = new Connection();
     }
 
-    public function GetAllNews(int $page) {
+    public function getAllNews(int $page) {
         $nbNewsPerpage=1;
         try {
-          $query="SELECT * FROM news LIMIT :Page,:NbNews";
+          $query="SELECT * FROM news LIMIT :page,:nbNews";
 
           $this->con->executeQuery($query, array(
-              ':Page' => array(($page-1)*$nbNewsPerpage, PDO::PARAM_INT),
-              ':NbNews' => array($nbNewsPerpage, PDO::PARAM_INT)
+              ':page' => array(($page-1)*$nbNewsPerpage, PDO::PARAM_INT),
+              ':nbNews' => array($nbNewsPerpage, PDO::PARAM_INT)
           ));
 
-          return $this->con->getResults();
+          $res = $this->con->getResults();
+          return !$res ? NULL : NewsFactory::makeAll($res);
         }
         catch(PDOException $e) {
           throw new Exception($e);
         }
     }
 
-    public function GetNewsByKeyWord(string $keyword, int $page) {
+    public function getNewsByKeyWord(string $keyword, int $page) {
         $nbNewsPerpage=1;
         try {
-          $query="SELECT * FROM news WHERE Title REGEXP :Regex OR Description REGEXP :Regex LIMIT :Page,:NbNews";
+          $query="SELECT * FROM news WHERE title REGEXP :regex OR description REGEXP :regex LIMIT :page,:nbNews";
 
           $this->con->executeQuery($query, array(
-              ':Regex' => array($keyword, PDO::PARAM_STR),
-              ':Page' => array(($page-1)*$nbNewsPerpage, PDO::PARAM_INT),
-              ':NbNews' => array($nbNewsPerpage, PDO::PARAM_INT)
+              ':regex' => array($keyword, PDO::PARAM_STR),
+              ':page' => array(($page-1)*$nbNewsPerpage, PDO::PARAM_INT),
+              ':nbNews' => array($nbNewsPerpage, PDO::PARAM_INT)
           ));
 
-          return $this->con->getResults();
+          return NewsFactory::makeAll($this->con->getResults());
         }
         catch(PDOException $e) {
           throw new Exception($e);
@@ -57,10 +58,10 @@ class NewsGateway {
 
     public function getNbNewsByKeyword(string $keyword) {
         try {
-          $query="SELECT COUNT(*) FROM news WHERE Title REGEXP :Regex OR Description REGEXP :Regex";
+          $query="SELECT COUNT(*) FROM news WHERE title REGEXP :regex OR description REGEXP :regex";
 
           $this->con->executeQuery($query, array(
-              ':Regex' => array($keyword, PDO::PARAM_STR)
+              ':regex' => array($keyword, PDO::PARAM_STR)
           ));
 
           return ($this->con->getFirst())['COUNT(*)'];
@@ -70,17 +71,17 @@ class NewsGateway {
         }
     }
 
-    public function Insert($title, $description, $link, $guid, $pubDate, $category) {
+    public function insert($title, $description, $link, $guid, $pubDate, $category) {
       try{
-        $query="INSERT INTO news VALUES (:Title,:Description,:Link,:Guid, :PubDate, :Category)";
+        $query="INSERT INTO news VALUES (:title,:description,:link,:guid,:pubDate,:category)";
 
         $this->con->executeQuery($query, array(
-            ':Title' => array($title, PDO::PARAM_STR),
-            ':Description' => array($description, PDO::PARAM_STR),
-            ':Link' => array($link, PDO::PARAM_STR),
-            ':Guid' => array($guid, PDO::PARAM_STR),
-            ':PubDate' => array(date("Y-m-d H:i:s", strtotime($pubDate)), PDO::PARAM_STR),
-            ':Category' => array($category, PDO::PARAM_STR)
+            ':title' => array($title, PDO::PARAM_STR),
+            ':description' => array($description, PDO::PARAM_STR),
+            ':link' => array($link, PDO::PARAM_STR),
+            ':guid' => array($guid, PDO::PARAM_STR),
+            ':pubDate' => array(date("Y-m-d H:i:s", strtotime($pubDate)), PDO::PARAM_STR),
+            ':category' => array($category, PDO::PARAM_STR)
         ));
 
         return $this->con->lastInsertId();
@@ -90,17 +91,17 @@ class NewsGateway {
       }
     }
 
-    public function Update($title, $description, $link, $guid, $pubDate, $category) {
+    public function update($title, $description, $link, $guid, $pubDate, $category) {
         try {
-          $query="UPDATE news SET Title=:Title,Description=:Description,Link=:Link,Guid=:Guid, PubDate=:PubDate,Category=:Category)";
+          $query="UPDATE news SET title=:title, description=:description, guid=:guid, pubdate=:pubdate, category=:category) WHERE link=:link";
 
           return $this->con->executeQuery($query, array(
-              ':Title' => array($title, PDO::PARAM_STR),
-              ':Description' => array($description, PDO::PARAM_STR),
-              ':Link' => array($link, PDO::PARAM_STR),
-              ':Guid' => array($guid, PDO::PARAM_STR),
-              ':PubDate' => array(date("Y-m-d H:i:s", strtotime($pubDate)), PDO::PARAM_STR),
-              ':Category' => array($category, PDO::PARAM_STR)
+              ':title' => array($title, PDO::PARAM_STR),
+              ':description' => array($description, PDO::PARAM_STR),
+              ':guid' => array($guid, PDO::PARAM_STR),
+              ':pubdate' => array(date("Y-m-d H:i:s", strtotime($pubDate)), PDO::PARAM_STR),
+              ':category' => array($category, PDO::PARAM_STR),
+              ':link' => array($link, PDO::PARAM_STR)
           ));
         }
         catch(PDOException $e) {
@@ -108,12 +109,12 @@ class NewsGateway {
         }
     }
 
-    public function Delete($title) {
+    public function delete($link) {
         try {
-          $query="DELETE FROM news WHERE Title=:Title";
+          $query="DELETE FROM news WHERE link=:link";
 
           return $this->con->executeQuery($query, array(
-              ':Title' => array($title, PDO::PARAM_STR)
+              ':link' => array($link, PDO::PARAM_INT)
           ));
         }
         catch(PDOException $e) {

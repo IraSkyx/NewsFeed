@@ -11,7 +11,7 @@ class FrontController {
     global $rep,$views,$contents,$admin;
 
     try {
-      $action = Cleaner::CleanString($_REQUEST['action']);
+      $action = Cleaner::cleanString($_REQUEST['action']);
 
       if(in_array($action, $this->adminActions)) {
           $admin = AdminModel::isAdmin();

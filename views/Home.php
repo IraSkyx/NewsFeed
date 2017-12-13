@@ -14,17 +14,17 @@
         if(count($allNews)>0) {
           foreach ($allNews as $article)
             echo '
-            <a href="'.$article['Link'].'">
+            <a href="'.$article->getLink().'">
               <div class="row shadow">
                 <div style="width:100%">
                   <h3>
                     <i class="fa fa-clock-o" aria-hidden="true"></i>
-                    <time class="timeago" datetime="'.$article['PubDate'].'"></time>
+                    <time class="timeago" datetime="'.$article->getPubDate().'"></time>
                   </h3>
                 </div>
                 <div style="width:100%">
-                  <h2>'.$article['Title'].'</h2>
-                  <h3>'.$article['Description'].'</h3>
+                  <h2>'.$article->getTitle().'</h2>
+                  <h3>'.$article->getDescription().'</h3>
                 </div>
               </div>
             </a>';

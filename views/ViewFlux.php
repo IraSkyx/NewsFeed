@@ -29,14 +29,14 @@
              </tr>
 
            <?php
-            if(count($allFlux)>0){
+            if(count($allFlux) > 0){
               foreach ($allFlux as $flux)
               echo '<tr>
-                      <form class="form-inline my-2 my-lg-0" method="post" action="index.php?action=updateFlux">
-                        <td><input class="form-control mr-sm-2" name="name" value="'.$flux['name'].'" type="text"></td>
-                        <td><input class="form-control mr-sm-2" name="link" readonly value="'.$flux['link'].'"></td>
-                        <td><input class="form-control mr-sm-2" type="submit"></td>
-                        <td class="d-flex justify-content-center"><a href="index.php?action=deleteFlux&link='. $flux['link'] .'"><i class="fa fa-ban" aria-hidden="true"></i></a></td>
+                      <form class="form-inline my-2 my-lg-0" method="post" action="index.php?action=updateFlux&id='.$flux->getId().'">
+                        <td><input class="form-control mr-sm-2" name="name" value="'.$flux->getName().'" type="text"></td>
+                        <td><input class="form-control mr-sm-2" name="link" value="'.$flux->getLink().'"></td>
+                        <td><input class="form-control mr-sm-2" type="submit" value="&#xf05d;" style="font-family:Roboto, FontAwesome"></td>
+                        <td class="d-flex justify-content-center"><a href="index.php?action=deleteFlux&id='.$flux->getId().'"><i class="fa fa-ban" aria-hidden="true"></i></a></td>
                       </form>
                     </tr>';
             }

@@ -7,26 +7,41 @@ class FluxGateway {
         $this->con = new Connection();
     }
 
-    public function GetAllFlux() {
+    public function getAllFlux() {
         try {
           $query="SELECT * FROM flux";
 
-          $this->con->executeQuery($query);
-
-          return $this->con->getResults();
+          return !($this->con->executeQuery($query)) ? NULL : FluxFactory::makeAll($this->con->getResults());
         }
         catch(PDOException $e) {
           throw new Exception($e);
         }
     }
 
-    public function Insert($name, $link) {
+    public function getFlux(string $link) {
+        try {
+          $query="SELECT * FROM flux WHERE link=:link";
+
+          $this->con->executeQuery($query, array(
+              ':link' => array($link, PDO::PARAM_STR)
+          ));
+
+          $res=$this->con->getFirst();
+
+          return !$res ? NULL : FluxFactory::make($res);
+        }
+        catch(PDOException $e) {
+          throw new Exception($e);
+        }
+    }
+
+    public function insert($name, $link) {
       try {
-        $query="INSERT INTO flux VALUES (:Name,:Link)";
+        $query="INSERT INTO flux (name,link) VALUES (:name,:link)";
 
         $this->con->executeQuery($query, array(
-            ':Name' => array($name, PDO::PARAM_STR),
-            ':Link' => array($link, PDO::PARAM_STR)
+            ':name' => array($name, PDO::PARAM_STR),
+            ':link' => array($link, PDO::PARAM_STR)
         ));
 
         return $this->con->lastInsertId();
@@ -36,13 +51,14 @@ class FluxGateway {
       }
     }
 
-    public function Update($name, $link) {
+    public function update($id, $name, $link) {
         try {
-          $query="UPDATE flux SET name=:Name WHERE link=:Link";
+          $query="UPDATE flux SET name=:name, link=:link WHERE id=:id";
 
           return $this->con->executeQuery($query, array(
-              ':Name' => array($name, PDO::PARAM_STR),
-              ':Link' => array($link, PDO::PARAM_STR)
+              ':name' => array($name, PDO::PARAM_STR),
+              ':link' => array($link, PDO::PARAM_STR),
+              ':id' => array($id, PDO::PARAM_INT)
           ));
         }
         catch(PDOException $e) {
@@ -50,12 +66,12 @@ class FluxGateway {
         }
     }
 
-    public function Delete($link) {
+    public function delete($id) {
         try {
-          $query="DELETE FROM flux WHERE link=:Link";
+          $query="DELETE FROM flux WHERE id=:id";
 
           return $this->con->executeQuery($query, array(
-              ':Link' => array($link, PDO::PARAM_STR)
+              ':id' => array($id, PDO::PARAM_INT)
           ));
         }
         catch(PDOException $e) {

@@ -56,8 +56,8 @@ class UserController {
 		global $rep,$views,$contents, $admin,$nbNewsPerPage;
 
 		if(isset($_GET['keyWord']) && !empty($_GET['keyWord'])){
-			$page=Cleaner::CleanInt($_GET['page']);
-			$keyWord=Cleaner::CleanString($_GET['keyWord']);
+			$page=Cleaner::cleanInt($_GET['page']);
+			$keyWord=Cleaner::cleanString($_GET['keyWord']);
 			$allNews=UserModel::getNewsByKeyWord($keyWord, $page);
 			$nbNews=UserModel::getNbNewsByKeyword($keyWord);
 
@@ -72,7 +72,7 @@ class UserController {
 	}
 	protected function displayAllNews() : void {
 			global $rep,$views,$contents, $admin,$nbNewsPerPage;
-			$page=Cleaner::CleanInt($_GET['page']);
+			$page=Cleaner::cleanInt($_GET['page']);
 			$allNews = UserModel::getAllNews($page);
 			$nbNews = UserModel::getNbNews();
 

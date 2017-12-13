@@ -7,7 +7,7 @@ class AdminGateway {
         $this->con = new Connection();
     }
 
-    public function GetAdmin($username, $password) : ?Admin {
+    public function getAdmin($username, $password) : ?Admin {
         try {
           $query='SELECT * FROM admins WHERE username=:username AND password=:password';
 
@@ -16,17 +16,17 @@ class AdminGateway {
               ':password'=>array($password, PDO::PARAM_STR)
           ));
 
-          $admin = $this->con->getFirst();
-          return !$admin ? null : new Admin($admin['username'],$admin['password']);
+          $res = $this->con->getFirst();
+          return !$res ? null : AdminFactory::make($res);
         }
         catch(PDOException $e) {
           throw new Exception($e);
         }
     }
 
-    public function Insert($username, $password) : string {
+    public function insert($username, $password) : string {
       try {
-        $query='INSERT INTO admins VALUES(:username, :password)';
+        $query='INSERT INTO admins (username, password) VALUES(:username, :password)';
 
         $this->con->executeQuery($query, array(
             ':username' => array($username, PDO::PARAM_STR),
@@ -40,13 +40,14 @@ class AdminGateway {
       }
     }
 
-    public function Update($username, $password) : bool {
+    public function update($id, $username, $password) : bool {
       try {
-        $query= 'UPDATE admins SET username=:username, password=:password';
+        $query= 'UPDATE admins SET username=:username, password=:password WHERE id=:id';
 
         return $this->con->executeQuery($query, array(
             ':username' => array($username, PDO::PARAM_STR),
-            ':password' => array($password, PDO::PARAM_STR)
+            ':password' => array($password, PDO::PARAM_STR),
+            ':id' => array($id, PDO::PARAM_INT)
         ));
       }
       catch(PDOException $e) {
@@ -54,12 +55,12 @@ class AdminGateway {
       }
     }
 
-    public function Delete($username) : bool {
+    public function delete($id) : bool {
       try {
-        $query= 'DELETE FROM admins WHERE username=:username';
+        $query= 'DELETE FROM admins WHERE id=:id';
 
         return $this->con->executeQuery($query, array(
-            ':username' => array($username, PDO::PARAM_STR)
+            ':id' => array($id, PDO::PARAM_INT)
         ));
       }
       catch(PDOException $e) {

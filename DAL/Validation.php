@@ -2,14 +2,14 @@
 
 class Validation{
 
-    public static function AreSet($args=array('')){
+    public static function areSet($args=array('')){
         $res=true;
         foreach($args as $line)
             $res&=isset($line);
         return $res;
     }
 
-    public static function AreNotEmpty($args=array('')){
+    public static function areNotEmpty($args=array('')){
         $res=true;
         foreach($args as $line)
             $res&=!empty($line);

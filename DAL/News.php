@@ -26,4 +26,28 @@ class News {
         $this->pubDate = $pubDate;
         $this->category = $category;
     }
+
+    public function getTitle() : ?string {
+      return $this->title;
+    }
+
+    public function getDescription() : ?string {
+      return $this->description;
+    }
+
+    public function getLink() : ?string {
+      return $this->link;
+    }
+
+    public function getGuid() : ?string {
+      return $this->guid;
+    }
+
+    public function getPubDate() : ?string {
+      return $this->pubDate;
+    }
+
+    public function getCategory() : ?string {
+      return $this->category;
+    }
 }

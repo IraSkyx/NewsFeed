@@ -3,7 +3,7 @@
 class Autoload {
     private static $_instance = null;
 
-    public static function Load(){
+    public static function load(){
         if(null !== self::$_instance)
             throw new RuntimeException(sprintf('%s is already started', __CLASS__));
 
@@ -14,7 +14,7 @@ class Autoload {
             throw RuntimeException(sprintf('%s : Could not start the autoload', __CLASS__));
     }
 
-    public static function Shutdown(){
+    public static function shutdown(){
         if(null !== self::$_instance) {
             if(!spl_autoload_unregister(array(self::$_instance, '_autoload')))
                     throw new RuntimeException('Could not stop the autoload');
