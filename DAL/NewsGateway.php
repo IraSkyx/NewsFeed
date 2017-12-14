@@ -72,7 +72,8 @@ class NewsGateway {
     }
 
     public function insert($title, $description, $link, $guid, $pubDate, $category) {
-      try{
+      echo $description.'</br>';
+      try {
         $query="INSERT INTO news VALUES (:title,:description,:link,:guid,:pubDate,:category)";
 
         $this->con->executeQuery($query, array(

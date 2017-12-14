@@ -2,6 +2,10 @@
 
 class NewsFactory {
 
+  public static function makeEmpty() : ?News {
+      return new News(null,null,null,null,null,null);
+  }
+
   public static function make(array $elements) : ?News {
     if(isset($elements))
       return new News($elements['name'], $elements['link']);

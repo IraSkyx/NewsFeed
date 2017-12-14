@@ -27,6 +27,34 @@ class News {
         $this->category = $category;
     }
 
+    //Setter
+
+    public function setTitle(string $title) : void {
+      $this->title=$title;
+    }
+
+    public function setDescription(string $description) : void {
+      $this->description=$description;
+    }
+
+    public function setLink(string $link) : void {
+      $this->link=$link;
+    }
+
+    public function setGuid(string $guid) : void {
+      $this->guid=$guid;
+    }
+
+    public function setPubDate(string $pubDate) : void {
+      $this->pubDate=$pubDate;
+    }
+
+    public function setCategory(string $category) : void {
+      $this->category=$category;
+    }
+
+    //Getter
+
     public function getTitle() : ?string {
       return $this->title;
     }
