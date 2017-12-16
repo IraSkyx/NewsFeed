@@ -1,5 +1,3 @@
-<?php if(isset($allNews) && isset($nbNews)){ ?>
-
 <!DOCTYPE html>
 
 <html lang="fr">
@@ -62,7 +60,3 @@
 
   </body>
 </html>
-
-<?php }
-else
-  require_once($rep.$views['404']);?>

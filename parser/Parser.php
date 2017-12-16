@@ -3,20 +3,9 @@
 class Parser {
 
     private $path;
-    private $result;
-    private $depth;
 
-    /**
-     * Parser constructor.
-     * @param $path
-     */
-    public function __construct($path) {
-        $this -> path = $path;
-        $this -> depth = 0;
-    }
-
-    public function getResult() {
-        return $this->result;
+    public function setPath(string $path){
+      $this->path=$path;
     }
 
     public function parse() {
@@ -37,93 +26,76 @@ class Parser {
             }
         }
 
-        $this -> result = ob_get_contents();
         ob_end_clean();
         fclose($fp);
         xml_parser_free($xml_parser);
     }
 
     private function startElement($parser, $name) {
-        global $category,$guid,$item,$title,$link,$description,$pubDate,$news;
+        global $category,$guid,$item,$title,$link,$description,$pubDate,$news,$tabNews;
         $name=strtolower($name);
 
         if($name == 'item'){
             $item = true;
             $news = NewsFactory::makeEmpty();
         }
-
-        if($item){
-            if($name== 'title')
-              $title = true;
-
-            if($name== 'link')
-              $link= true;
-
-            if($name== 'description')
-              $description = true;
-
-            if($name== 'pubDate')
-              $pubDate = true;
-
-            if($name== 'guid')
-              $guid = true;
-
-            if($name== 'category')
-              $category = true;
+        elseif($item){
+          switch($name){
+            case 'title' : $title = true; break;
+            case 'link' : $link = true; break;
+            case 'description' : $description = true; break;
+            case 'pubdate' : $pubDate = true; break;
+            case 'guid' : $guid = true; break;
+            case 'category' : $category = true; break;
+          }
         }
-    }
-
-    private function displayAttribute($attribute, $text) {
-        for ($i = 0; $i < $this -> depth; $i++) {
-            echo "ok";
-        }
-
-        echo "A - $attribute = $text\n";
     }
 
     private function endElement($parser, $name) {
-        global $category,$guid,$item,$title,$link,$description,$pubDate,$news;
-
-        $name=strtolower($name);
+      global $category,$guid,$item,$title,$link,$description,$pubDate,$news,$tabNews;
+      $name=strtolower($name);
 
         if($name == 'item'){
             $item = false;
-            (new NewsGateway())->Insert($news->getTitle(), $news->getDescription(), $news->getLink(), $news->getGuid(), $news->getPubDate(), $news->getCategory());
+            $tabNews[] = $news;
         }
-        $this -> depth--;
+        elseif($item){
+          switch($name){
+            case 'title' : $title = false; break;
+            case 'link' : $link = false; break;
+            case 'description' : $description = false; break;
+            case 'pubdate' : $pubDate = false; break;
+            case 'guid' : $guid = false; break;
+            case 'category' : $category = false; break;
+          }
+        }
     }
 
     private function characterData($parser, $data) {
-        global $category,$guid,$item,$title,$link,$description,$pubDate,$news;
-
-        echo $category?"true":"false"."</br>".(bool)$guid?"true":"false"."</br>".(bool)$item?"true":"false"."</br>".(bool)$title?"true":"false"."</br>".(bool)$link?"true":"false"."</br>".(bool)$description?"true":"false"."</br>".(bool)$pubDate."</br></br>";
+        global $category,$guid,$item,$title,$link,$description,$pubDate,$news,$tabNews;
 
         $data = trim($data);
 
-        if ($title == true){
+        if ($title && !empty($data))
           $news->setTitle($data);
-          $title=false;
-        }
-        if ($link == true){
+
+        if ($link && !empty($data))
           $news->setLink($data);
-          $link=false;
-        }
-        if ($description == true){
-          //echo "La description : ".$data."</br>";
-          $news->setDescription($data);
-          $description=false;
-        }
-        if ($pubDate == true){
+
+        if ($description && !empty($data))
+          if(preg_match('/(<img[^>]+>)/i', $data, $matches) == 1)
+            $news->setDescription(str_replace($matches[1], "", $data));
+          else
+            $news->setDescription($data);
+
+        if ($pubDate && !empty($data))
           $news->setPubDate($data);
-          $pubDate=false;
-        }
-        if ($guid == true){
+
+        if ($guid && !empty($data))
           $news->setGuid($data);
-          $guid=false;
-        }
-        if ($category == true){
-          $news->setCategory($data);
-          $category=false;
-        }
+
+        if ($category && !empty($data))
+          $news->setCategory(empty($news->getCategory()) ? $data : $news->getCategory().', '.$data);
+
     }
 }

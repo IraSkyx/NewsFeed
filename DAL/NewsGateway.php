@@ -8,9 +8,9 @@ class NewsGateway {
     }
 
     public function getAllNews(int $page) {
-        $nbNewsPerpage=1;
+        $nbNewsPerpage=10;
         try {
-          $query="SELECT * FROM news LIMIT :page,:nbNews";
+          $query="SELECT * FROM news ORDER BY pubdate DESC LIMIT :page,:nbNews";
 
           $this->con->executeQuery($query, array(
               ':page' => array(($page-1)*$nbNewsPerpage, PDO::PARAM_INT),
@@ -21,14 +21,14 @@ class NewsGateway {
           return !$res ? NULL : NewsFactory::makeAll($res);
         }
         catch(PDOException $e) {
-          throw new Exception($e);
+          throw new Exception($e, $this->con->getErrorCode());
         }
     }
 
     public function getNewsByKeyWord(string $keyword, int $page) {
-        $nbNewsPerpage=1;
+        $nbNewsPerpage=10;
         try {
-          $query="SELECT * FROM news WHERE title REGEXP :regex OR description REGEXP :regex LIMIT :page,:nbNews";
+          $query="SELECT * FROM news WHERE title REGEXP :regex OR description REGEXP :regex ORDER BY pubdate DESC LIMIT :page,:nbNews";
 
           $this->con->executeQuery($query, array(
               ':regex' => array($keyword, PDO::PARAM_STR),
@@ -39,7 +39,7 @@ class NewsGateway {
           return NewsFactory::makeAll($this->con->getResults());
         }
         catch(PDOException $e) {
-          throw new Exception($e);
+          throw new Exception($e, $this->con->getErrorCode());
         }
     }
 
@@ -52,7 +52,7 @@ class NewsGateway {
           return ($this->con->getFirst())['COUNT(*)'];
         }
         catch(PDOException $e) {
-          throw new Exception($e);
+          throw new Exception($e, $this->con->getErrorCode());
         }
     }
 
@@ -67,12 +67,11 @@ class NewsGateway {
           return ($this->con->getFirst())['COUNT(*)'];
         }
         catch(PDOException $e) {
-          throw new Exception($e);
+          throw new Exception($e, $this->con->getErrorCode());
         }
     }
 
     public function insert($title, $description, $link, $guid, $pubDate, $category) {
-      echo $description.'</br>';
       try {
         $query="INSERT INTO news VALUES (:title,:description,:link,:guid,:pubDate,:category)";
 
@@ -88,38 +87,38 @@ class NewsGateway {
         return $this->con->lastInsertId();
       }
       catch(PDOException $e) {
-        throw new Exception($e);
+        throw new Exception($e, $this->con->getErrorCode());
       }
     }
 
     public function update($title, $description, $link, $guid, $pubDate, $category) {
         try {
-          $query="UPDATE news SET title=:title, description=:description, guid=:guid, pubdate=:pubdate, category=:category) WHERE link=:link";
+          $query="UPDATE news SET title=:title, description=:description, link=:link, pubdate=:pubdate, category=:category WHERE guid=:guid";
 
           return $this->con->executeQuery($query, array(
               ':title' => array($title, PDO::PARAM_STR),
               ':description' => array($description, PDO::PARAM_STR),
-              ':guid' => array($guid, PDO::PARAM_STR),
+              ':link' => array($link, PDO::PARAM_STR),
               ':pubdate' => array(date("Y-m-d H:i:s", strtotime($pubDate)), PDO::PARAM_STR),
               ':category' => array($category, PDO::PARAM_STR),
-              ':link' => array($link, PDO::PARAM_STR)
+              ':guid' => array($guid, PDO::PARAM_STR)
           ));
         }
         catch(PDOException $e) {
-          throw new Exception($e);
+          throw new Exception($e, $this->con->getErrorCode());
         }
     }
 
-    public function delete($link) {
+    public function delete($guid) {
         try {
-          $query="DELETE FROM news WHERE link=:link";
+          $query="DELETE FROM news WHERE guid=:guid";
 
           return $this->con->executeQuery($query, array(
-              ':link' => array($link, PDO::PARAM_INT)
+              ':guid' => array($guid, PDO::PARAM_INT)
           ));
         }
         catch(PDOException $e) {
-          throw new Exception($e);
+          throw new Exception($e, $this->con->getErrorCode());
         }
     }
 }

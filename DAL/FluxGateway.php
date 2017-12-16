@@ -14,7 +14,7 @@ class FluxGateway {
           return !($this->con->executeQuery($query)) ? NULL : FluxFactory::makeAll($this->con->getResults());
         }
         catch(PDOException $e) {
-          throw new Exception($e);
+          throw new Exception($e, $this->con->getErrorCode());
         }
     }
 
@@ -31,7 +31,7 @@ class FluxGateway {
           return !$res ? NULL : FluxFactory::make($res);
         }
         catch(PDOException $e) {
-          throw new Exception($e);
+          throw new Exception($e, $this->con->getErrorCode());
         }
     }
 
@@ -47,7 +47,7 @@ class FluxGateway {
         return $this->con->lastInsertId();
       }
       catch(PDOException $e) {
-        throw new Exception($e);
+        throw new Exception($e, $this->con->getErrorCode());
       }
     }
 
@@ -62,7 +62,7 @@ class FluxGateway {
           ));
         }
         catch(PDOException $e) {
-          throw new Exception($e);
+          throw new Exception($e, $this->con->getErrorCode());
         }
     }
 
@@ -75,7 +75,7 @@ class FluxGateway {
           ));
         }
         catch(PDOException $e) {
-          throw new Exception($e);
+          throw new Exception($e, $this->con->getErrorCode());
         }
     }
 }

@@ -2,8 +2,10 @@
 
 $rep=__DIR__.'/../';
 
+define("DUPLICATION", 23000);
+
 $admin=NULL;
-$nbNewsPerPage=1;
+$nbNewsPerPage=10;
 
 //Config Adrien
 $dsn="mysql:host=localhost;dbname=dbadlenoir";

@@ -23,13 +23,13 @@ class AdminModel {
 		$_SESSION=array();
 	}
 
-	public static function isAdmin() {
+	public static function isAdmin() : ?Admin {
 			if(isset($_SESSION['id']) && isset($_SESSION['username']) && isset($_SESSION['password']))
 				return new Admin(Cleaner::CleanInt($_SESSION['id']), Cleaner::cleanString($_SESSION['username']), Cleaner::cleanString($_SESSION['password']));
 	    return null;
 	}
 
-	public static function getAllFlux() : array {
+	public static function getAllFlux() : ?array {
 		return (new FluxGateway())->getAllFlux();
 	}
 
@@ -40,6 +40,7 @@ class AdminModel {
 	public static function addFlux(string $name, string $link) {
 		$name=Cleaner::cleanString($name);
 		$link=Cleaner::cleanString($link);
+		Validation::validateRSS($link);
 		return (new FluxGateway())->insert($name,$link);
 	}
 
@@ -47,6 +48,7 @@ class AdminModel {
 		$id=Cleaner::cleanString($id);
 		$name=Cleaner::cleanString($name);
 		$link=Cleaner::cleanString($link);
+		Validation::validateRSS($link);
 		return (new FluxGateway())->update($id,$name,$link);
 	}
 

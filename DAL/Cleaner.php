@@ -7,6 +7,8 @@ class Cleaner {
   }
 
   public static function cleanInt($input) : int {
-      return Validation::isNumber($input) ? filter_var($input, FILTER_SANITIZE_NUMBER_INT) : 1;
+      if(!Validation::isNumber($input) || $input < 1)
+        return 1;
+      return $input;
   }
 }

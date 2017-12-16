@@ -67,34 +67,44 @@ class AdminController extends UserController {
 	private function addFlux() {
 		global $rep,$views,$contents,$admin;
 		$args=array($_POST['name'], $_POST['link']);
+
 		if(Validation::areSet($args) && Validation::areNotEmpty($args)){
-			if(AdminModel::getFlux($_POST['link']) != NULL) {
-				$exists=true;
-        $allFlux=AdminModel::getAllFlux();
-				require($rep.$views['viewFlux']);
-			}
-			else
+			try {
 				AdminModel::addFlux($_POST['name'],$_POST['link']);
-			header('Location: index.php?action=viewFlux');
+			}
+			catch(Exception $e){
+				if($e->getCode() == DUPLICATION)
+					$exists=true;
+				else
+					$invalid = true;
+			}
+			$allFlux=AdminModel::getAllFlux();
+			require($rep.$views['viewFlux']);
 		}
 	}
 
 	private function updateFlux() {
 		global $rep,$views,$contents,$admin;
 		$args=array($_GET['id'], $_POST['name'], $_POST['link']);
+
 		if (Validation::areSet($args) && Validation::areNotEmpty($args)){
-		    try{
+		    try {
 					AdminModel::updateFlux($_GET['id'],$_POST['name'], $_POST['link']);
 				}
-				catch(Exception $e){
-					var_dump($e->getCode());
+				catch(Exception $e) {
+					if($e->getCode() == DUPLICATION)
+						$exists=true;
+					else
+						$invalid = true;
 				}
-        //header('Location: index.php?action=viewFlux');
+				$allFlux=AdminModel::getAllFlux();
+				require($rep.$views['viewFlux']);
     }
 	}
 
 	private function deleteFlux() {
 		global $rep,$views,$contents,$admin;
+
 		if(isset($_GET['id']) && !empty($_GET['id'])){
 			AdminModel::deleteFlux($_GET['id']);
 			header('Location: index.php?action=viewFlux');

@@ -9,7 +9,8 @@
   <?php include($rep.$contents['header']) ?>
 
    <div class="container">
-     <?php if(isset($exists) && $exists) echo '<div class="alert alert-danger">Flux already in the database !</div>'; ?>
+     <?php if(isset($exists) && $exists) echo '<div class="alert alert-danger">Flux is already in the database !</div>';
+           if(isset($invalid) && $invalid) echo '<div class="alert alert-warning">Not a valid RSS</div>'; ?>
      <div class="table-responsive">
          <table class="table table-striped">
            <thead>

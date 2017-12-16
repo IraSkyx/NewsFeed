@@ -16,6 +16,15 @@ class Validation{
         return $res;
     }
 
+    public static function validateRSS($input){
+      try {
+        new SimpleXmlElement(@file_get_contents($input));
+      }
+      catch(Exception $e) {
+        throw new Exception($e);
+      }
+    }
+
     public static function isNumber($input){
         if(filter_var($input, FILTER_VALIDATE_INT))
             return true;

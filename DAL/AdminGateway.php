@@ -20,7 +20,7 @@ class AdminGateway {
           return !$res ? null : AdminFactory::make($res);
         }
         catch(PDOException $e) {
-          throw new Exception($e);
+          throw new Exception($e, $this->con->getErrorCode());
         }
     }
 
@@ -36,7 +36,7 @@ class AdminGateway {
         return $this->con->lastInsertId();
       }
       catch(PDOException $e) {
-        throw new Exception($e);
+        throw new Exception($e, $this->con->getErrorCode());
       }
     }
 
@@ -51,7 +51,7 @@ class AdminGateway {
         ));
       }
       catch(PDOException $e) {
-        throw new Exception($e);
+        throw new Exception($e, $this->con->getErrorCode());
       }
     }
 
@@ -64,7 +64,7 @@ class AdminGateway {
         ));
       }
       catch(PDOException $e) {
-        throw new Exception($e);
+        throw new Exception($e, $this->con->getErrorCode());
       }
     }
 }

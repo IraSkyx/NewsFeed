@@ -1,27 +1,28 @@
-<html>
-  <body>
-    <?php
+<?php
 
-    require_once(__DIR__.'/../config/config.php');
+  require_once(__DIR__.'/../config/config.php');
+  require_once(__DIR__.'/../config/Autoload.php');
+  Autoload::load();
 
-    require_once(__DIR__.'/../config/Autoload.php');
+  $item=$category=$guid=$title=$link=$description=$pubDate=false;
+  $news = NewsFactory::makeEmpty();
 
-    Autoload::load();
+  $parser = new Parser();
+  $gateway=new NewsGateway();
 
-    $category=false;
-    $guid=false;
-    $item=false;
-    $title=false;
-    $link=false;
-    $description=false;
-    $pubDate=false;
-    $news = NewsFactory::makeEmpty();
+  foreach((new FluxGateway())->getAllFlux() as $flux){
+    $tabNews = array();
 
-    $parser = new Parser('https://www.engadget.com/rss.xml');
-    $parser ->parse();
-    $result = $parser ->getResult();
-    echo $result;
+    $parser->setPath($flux->getLink());
+    $parser->parse();
 
-    ?>
-  </body>
-</html>
+    foreach ($tabNews as $elmt) {
+      try {
+        $gateway->insert($elmt->getTitle(),$elmt->getDescription(),$elmt->getLink(),$elmt->getGuid(),$elmt->getPubDate(),$elmt->getCategory());
+      }
+      catch(Exception $e) {
+        if($e->getCode() == DUPLICATION)
+          $gateway->update($elmt->getTitle(),$elmt->getDescription(),$elmt->getLink(),$elmt->getGuid(),$elmt->getPubDate(),$elmt->getCategory());
+      }
+    }
+  }

@@ -40,4 +40,8 @@ class Connection extends PDO {
   public function getFirst() {
    	return $this->stmt->fetch();
   }
+
+  public function getErrorCode(){
+    return $this->stmt->errorCode();
+  }
 }
