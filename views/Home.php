@@ -12,7 +12,7 @@
         if(count($allNews)>0) {
           foreach ($allNews as $article)
             echo '
-            <a href="'.$article->getLink().'">
+            <a target="blank" href="'.$article->getLink().'">
               <div class="row shadow">
                 <div style="width:100%">
                   <h3>

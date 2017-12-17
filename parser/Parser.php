@@ -3,9 +3,31 @@
 class Parser {
 
     private $path;
+    private $category;
+    private $guid;
+    private $item;
+    private $title;
+    private $link;
+    private $description;
+    private $pubDate;
+    private $news;
+    private $tabNews;
 
     public function setPath(string $path){
       $this->path=$path;
+      $this->category=false;
+      $this->guid=false;
+      $this->item=false;
+      $this->title=false;
+      $this->link=false;
+      $this->description=false;
+      $this->pubDate=false;
+      $this->news=NewsFactory::makeEmpty();
+      $this->tabNews=array();
+    }
+
+    public function getTabNews(){
+      return $this->tabNews;
     }
 
     public function parse() {
@@ -32,70 +54,62 @@ class Parser {
     }
 
     private function startElement($parser, $name) {
-        global $category,$guid,$item,$title,$link,$description,$pubDate,$news,$tabNews;
         $name=strtolower($name);
 
         if($name == 'item'){
-            $item = true;
-            $news = NewsFactory::makeEmpty();
+            $this->item = true;
+            $this->news = NewsFactory::makeEmpty();
         }
-        elseif($item){
+        elseif($this->item){
           switch($name){
-            case 'title' : $title = true; break;
-            case 'link' : $link = true; break;
-            case 'description' : $description = true; break;
-            case 'pubdate' : $pubDate = true; break;
-            case 'guid' : $guid = true; break;
-            case 'category' : $category = true; break;
+            case 'title' : $this->title = true; break;
+            case 'link' : $this->link = true; break;
+            case 'description' : $this->description = true; break;
+            case 'pubdate' : $this->pubDate = true; break;
+            case 'guid' : $this->guid = true; break;
+            case 'category' : $this->category = true; break;
           }
         }
     }
 
     private function endElement($parser, $name) {
-      global $category,$guid,$item,$title,$link,$description,$pubDate,$news,$tabNews;
       $name=strtolower($name);
 
         if($name == 'item'){
-            $item = false;
-            $tabNews[] = $news;
+            $this->item = false;
+            $this->tabNews[] = $this->news;
         }
-        elseif($item){
+        elseif($this->item){
           switch($name){
-            case 'title' : $title = false; break;
-            case 'link' : $link = false; break;
-            case 'description' : $description = false; break;
-            case 'pubdate' : $pubDate = false; break;
-            case 'guid' : $guid = false; break;
-            case 'category' : $category = false; break;
+            case 'title' : $this->title = false; break;
+            case 'link' : $this->link = false; break;
+            case 'description' : $this->description = false; break;
+            case 'pubdate' : $this->pubDate = false; break;
+            case 'guid' : $this->guid = false; break;
+            case 'category' : $this->category = false; break;
           }
         }
     }
 
     private function characterData($parser, $data) {
-        global $category,$guid,$item,$title,$link,$description,$pubDate,$news,$tabNews;
+        $data = strip_tags(trim($data));
 
-        $data = trim($data);
+        if ($this->title && !empty($data))
+          $this->news->setTitle($data);
 
-        if ($title && !empty($data))
-          $news->setTitle($data);
+        if ($this->link && !empty($data))
+          $this->news->setLink($data);
 
-        if ($link && !empty($data))
-          $news->setLink($data);
+        if ($this->description && !empty($data))
+          $this->news->setDescription($data);
 
-        if ($description && !empty($data))
-          if(preg_match('/(<img[^>]+>)/i', $data, $matches) == 1)
-            $news->setDescription(str_replace($matches[1], "", $data));
-          else
-            $news->setDescription($data);
+        if ($this->pubDate && !empty($data))
+          $this->news->setPubDate($data);
 
-        if ($pubDate && !empty($data))
-          $news->setPubDate($data);
+        if ($this->guid && !empty($data))
+          $this->news->setGuid($data);
 
-        if ($guid && !empty($data))
-          $news->setGuid($data);
-
-        if ($category && !empty($data))
-          $news->setCategory(empty($news->getCategory()) ? $data : $news->getCategory().', '.$data);
-
+        if ($this->category && !empty($data))
+          $this->news->setCategory(empty($this->news->getCategory()) ? $data : $this->news->getCategory().', '.$data);
     }
 }
