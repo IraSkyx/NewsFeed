@@ -26,9 +26,14 @@ class AdminModel {
 	}
 
 	public static function isAdmin() : ?Admin {
-		if(isset($_SESSION['id']) && isset($_SESSION['username']) && isset($_SESSION['password']))
-			return new Admin(Cleaner::cleanInt($_SESSION['id']), Cleaner::cleanString($_SESSION['username']), Cleaner::cleanString($_SESSION['password']));
-    return null;
+		if(isset($_SESSION['id']) && isset($_SESSION['username']) && isset($_SESSION['password'])){
+			return AdminFactory::make(array(
+				'id' => Cleaner::cleanInt($_SESSION['id']), 
+				'username' => Cleaner::cleanString($_SESSION['username']), 
+				'password' => Cleaner::cleanString($_SESSION['password'])
+			));
+		}
+    	return null;
 	}
 
 	public static function getAllFlux() : ?array {
