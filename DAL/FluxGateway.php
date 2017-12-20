@@ -7,7 +7,7 @@ class FluxGateway {
         $this->con = new Connection();
     }
 
-    public function getAllFlux() {
+    public function getAllFlux() : ?array {
         try {
           $query="SELECT * FROM flux";
 
@@ -18,7 +18,7 @@ class FluxGateway {
         }
     }
 
-    public function getFlux(string $link) {
+    public function getFlux(string $link) : ?Flux {
         try {
           $query="SELECT * FROM flux WHERE link=:link";
 
@@ -35,7 +35,7 @@ class FluxGateway {
         }
     }
 
-    public function insert($name, $link) {
+    public function insert($name, $link) : ?string {
       try {
         $query="INSERT INTO flux (name,link) VALUES (:name,:link)";
 
@@ -51,7 +51,7 @@ class FluxGateway {
       }
     }
 
-    public function update($id, $name, $link) {
+    public function update($id, $name, $link) : bool {
         try {
           $query="UPDATE flux SET name=:name, link=:link WHERE id=:id";
 
@@ -66,7 +66,7 @@ class FluxGateway {
         }
     }
 
-    public function delete($id) {
+    public function delete($id) : bool {
         try {
           $query="DELETE FROM flux WHERE id=:id";
 

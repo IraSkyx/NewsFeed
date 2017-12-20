@@ -41,7 +41,7 @@ class Connection extends PDO {
    	return $this->stmt->fetch();
   }
 
-  public function getErrorCode(){
+  public function getErrorCode() : ?int {
     return $this->stmt->errorCode();
   }
 }

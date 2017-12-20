@@ -24,7 +24,7 @@ class AdminGateway {
         }
     }
 
-    public function insert($username, $password) : string {
+    public function insert($username, $password) : ?string {
       try {
         $query='INSERT INTO admins (username, password) VALUES(:username, :password)';
 

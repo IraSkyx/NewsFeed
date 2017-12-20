@@ -3,7 +3,7 @@
 class NewsFactory {
 
   public static function makeEmpty() : ?News {
-      return new News(null,null,null,null,null,null);
+      return new News(NULL,NULL,NULL,NULL,NULL,NULL);
   }
 
   public static function make(array $elements) : ?News {
@@ -12,7 +12,7 @@ class NewsFactory {
     return null;
   }
 
-  public static function makeAll(array $elements) : array {
+  public static function makeAll(array $elements) : ?array {
     $newsArray = array();
     foreach ($elements as $value)
       $newsArray [] = new News($value['title'], $value['description'], $value['link'], $value['guid'], $value['pubdate'], $value['category']);

@@ -6,6 +6,7 @@ define("DUPLICATION", 23000);
 
 $admin=NULL;
 $nbNewsPerPage=10;
+$count=NULL;
 
 //Config Adrien
 $dsn="mysql:host=localhost;dbname=dbadlenoir";

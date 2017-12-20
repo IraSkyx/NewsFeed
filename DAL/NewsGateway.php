@@ -7,7 +7,7 @@ class NewsGateway {
         $this->con = new Connection();
     }
 
-    public function getAllNews(int $page) {
+    public function getAllNews(int $page) : ?array {
         $nbNewsPerpage=10;
         try {
           $query="SELECT * FROM news ORDER BY pubdate DESC LIMIT :page,:nbNews";
@@ -25,7 +25,7 @@ class NewsGateway {
         }
     }
 
-    public function getNewsByKeyWord(string $keyword, int $page) {
+    public function getNewsByKeyWord(string $keyword, int $page) : ?array {
         $nbNewsPerpage=10;
         try {
           $query="SELECT * FROM news WHERE title REGEXP :regex OR description REGEXP :regex ORDER BY pubdate DESC LIMIT :page,:nbNews";
@@ -43,7 +43,7 @@ class NewsGateway {
         }
     }
 
-    public function getNbNews() {
+    public function getNbNews() : ?int {
         try {
           $query="SELECT COUNT(*) FROM news";
 
@@ -56,7 +56,7 @@ class NewsGateway {
         }
     }
 
-    public function getNbNewsByKeyword(string $keyword) {
+    public function getNbNewsByKeyword(string $keyword) : ?int {
         try {
           $query="SELECT COUNT(*) FROM news WHERE title REGEXP :regex OR description REGEXP :regex";
 
@@ -71,7 +71,7 @@ class NewsGateway {
         }
     }
 
-    public function insert($title, $description, $link, $guid, $pubDate, $category) {
+    public function insert($title, $description, $link, $guid, $pubDate, $category) : ?string {
       try {
         $query="INSERT INTO news VALUES (:title,:description,:link,:guid,:pubDate,:category)";
 
@@ -91,7 +91,7 @@ class NewsGateway {
       }
     }
 
-    public function update($title, $description, $link, $guid, $pubDate, $category) {
+    public function update($title, $description, $link, $guid, $pubDate, $category) : bool {
         try {
           $query="UPDATE news SET title=:title, description=:description, link=:link, pubdate=:pubdate, category=:category WHERE guid=:guid";
 
@@ -109,7 +109,7 @@ class NewsGateway {
         }
     }
 
-    public function delete($guid) {
+    public function delete($guid) : bool {
         try {
           $query="DELETE FROM news WHERE guid=:guid";
 

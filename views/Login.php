@@ -15,11 +15,6 @@
         <input type="text" name="inputUsername" class="form-control inputMargin" placeholder="Username" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" name="inputPassword" class="form-control inputMargin" placeholder="Password" required>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-        </div>
 
         <?php if(isset($wrong) && $wrong) echo '<div class="alert alert-danger">Wrong username or password !</div>'; ?>
 

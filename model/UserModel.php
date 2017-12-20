@@ -6,7 +6,7 @@ class UserModel {
     return (new NewsGateway())->getAllNews($page);
   }
 
-  public static function getNbNews() : int {
+  public static function getNbNews() : ?int {
     return (new NewsGateway())->getNbNews();
   }
 
@@ -14,7 +14,7 @@ class UserModel {
     return (new NewsGateway())->getNewsByKeyWord($keyword, $page);
   }
 
-  public static function getNbNewsByKeyword(string $keyWord) : int {
+  public static function getNbNewsByKeyword(string $keyWord) : ?int {
     return (new NewsGateway())->getNbNewsByKeyword($keyWord);
   }
 }

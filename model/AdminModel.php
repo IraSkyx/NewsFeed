@@ -14,6 +14,8 @@ class AdminModel {
 		$_SESSION['id']=$admin->getId();
 		$_SESSION['username']=$admin->getUsername();
 		$_SESSION['password']=$admin->getPassword();
+		CookieModel::incrementCount();
+
 		return true;
 	}
 
@@ -24,9 +26,9 @@ class AdminModel {
 	}
 
 	public static function isAdmin() : ?Admin {
-			if(isset($_SESSION['id']) && isset($_SESSION['username']) && isset($_SESSION['password']))
-				return new Admin(Cleaner::CleanInt($_SESSION['id']), Cleaner::cleanString($_SESSION['username']), Cleaner::cleanString($_SESSION['password']));
-	    return null;
+		if(isset($_SESSION['id']) && isset($_SESSION['username']) && isset($_SESSION['password']))
+			return new Admin(Cleaner::cleanInt($_SESSION['id']), Cleaner::cleanString($_SESSION['username']), Cleaner::cleanString($_SESSION['password']));
+    return null;
 	}
 
 	public static function getAllFlux() : ?array {
@@ -37,14 +39,14 @@ class AdminModel {
 		return (new FluxGateway())->getFlux($link);
 	}
 
-	public static function addFlux(string $name, string $link) {
+	public static function addFlux(string $name, string $link) : ?string {
 		$name=Cleaner::cleanString($name);
 		$link=Cleaner::cleanString($link);
 		Validation::validateRSS($link);
 		return (new FluxGateway())->insert($name,$link);
 	}
 
-	public static function updateFlux(string $id, string $name, string $link) {
+	public static function updateFlux(string $id, string $name, string $link) : bool {
 		$id=Cleaner::cleanString($id);
 		$name=Cleaner::cleanString($name);
 		$link=Cleaner::cleanString($link);
@@ -52,7 +54,7 @@ class AdminModel {
 		return (new FluxGateway())->update($id,$name,$link);
 	}
 
-	public static function deleteFlux(string $id) {
+	public static function deleteFlux(string $id) : bool {
 		$id=Cleaner::cleanString($id);
 		return (new FluxGateway())->delete($id);
 	}

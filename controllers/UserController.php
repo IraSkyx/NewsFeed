@@ -38,11 +38,11 @@ class UserController {
 		exit(0);
 	}
 	protected function login() : void {
-		global $rep,$views,$contents,$admin;
+		global $rep,$views,$contents,$admin,$count;
 		require($rep.$views['login']);
 	}
 	protected function signin() : void {
-		global $rep,$views,$contents,$admin;
+		global $rep,$views,$contents,$admin,$count;
 		if(isset($_POST['inputUsername']) && isset($_POST['inputPassword'])){
 			if(AdminModel::connect($_POST['inputUsername'], $_POST['inputPassword']) == false) {
 				$wrong=true;
@@ -53,14 +53,14 @@ class UserController {
 		}
 	}
 	protected function search() : void {
-		global $rep,$views,$contents,$admin,$nbNewsPerPage;
+		global $rep,$views,$contents,$admin,$nbNewsPerPage,$count;
 
 		if(isset($_GET['keyWord']) && !empty($_GET['keyWord'])){
 			$page=Cleaner::cleanInt($_GET['page']);
 			$keyWord=Cleaner::cleanString($_GET['keyWord']);
 
 			$allNews=UserModel::getNewsByKeyWord($keyWord, $page);
-			$nbNews=UserModel::getNbNewsByKeyword($keyword);
+			$nbNews=UserModel::getNbNewsByKeyword($keyWord);
 
 			$nbPageBeforeAndAfterCurrent=5;
 			$request= "action=search&keyWord=".$keyWord.'&';
@@ -72,7 +72,7 @@ class UserController {
 			header('Location: index.php');
 	}
 	protected function displayAllNews() : void {
-			global $rep,$views,$contents,$admin,$nbNewsPerPage;
+			global $rep,$views,$contents,$admin,$nbNewsPerPage,$count;
 
 			$page=Cleaner::cleanInt($_GET['page']);
 

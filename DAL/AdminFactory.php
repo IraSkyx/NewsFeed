@@ -8,7 +8,7 @@ class AdminFactory {
     return null;
   }
 
-  public static function makeAll(array $elements) : array {
+  public static function makeAll(array $elements) : ?array {
     $adminArray = array();
     foreach ($elements as $value)
       $adminArray [] = new Admin($value['id'], $value['username'], $value['password']);

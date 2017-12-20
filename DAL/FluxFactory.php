@@ -8,7 +8,7 @@ class FluxFactory {
     return null;
   }
 
-  public static function makeAll(array $elements) : array {
+  public static function makeAll(array $elements) : ?array {
     $fluxArray = array();
     foreach ($elements as $value)
       $fluxArray [] = new Flux($value['id'], $value['name'], $value['link']);

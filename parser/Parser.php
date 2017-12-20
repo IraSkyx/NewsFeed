@@ -13,7 +13,7 @@ class Parser {
     private $news;
     private $tabNews;
 
-    public function setPath(string $path){
+    public function setPath(string $path) : void {
       $this->path=$path;
       $this->category=false;
       $this->guid=false;
@@ -26,11 +26,11 @@ class Parser {
       $this->tabNews=array();
     }
 
-    public function getTabNews(){
+    public function getTabNews() : ?array {
       return $this->tabNews;
     }
 
-    public function parse() {
+    public function parse() : void {
         ob_start();
         $xml_parser = xml_parser_create();
         xml_set_object($xml_parser, $this);
@@ -53,7 +53,7 @@ class Parser {
         xml_parser_free($xml_parser);
     }
 
-    private function startElement($parser, $name) {
+    private function startElement($parser, $name) : void {
         $name=strtolower($name);
 
         if($name == 'item'){
@@ -72,7 +72,7 @@ class Parser {
         }
     }
 
-    private function endElement($parser, $name) {
+    private function endElement($parser, $name) : void {
       $name=strtolower($name);
 
         if($name == 'item'){
@@ -91,25 +91,27 @@ class Parser {
         }
     }
 
-    private function characterData($parser, $data) {
+    private function characterData($parser, $data) : void {
         $data = strip_tags(trim($data));
 
-        if ($this->title && !empty($data))
-          $this->news->setTitle($data);
+        if(!empty($data)){
+          if ($this->title)
+            $this->news->setTitle($data);
 
-        if ($this->link && !empty($data))
-          $this->news->setLink($data);
+          if ($this->link)
+            $this->news->setLink($data);
 
-        if ($this->description && !empty($data))
-          $this->news->setDescription($data);
+          if ($this->description)
+            $this->news->setDescription($data);
 
-        if ($this->pubDate && !empty($data))
-          $this->news->setPubDate($data);
+          if ($this->pubDate)
+            $this->news->setPubDate($data);
 
-        if ($this->guid && !empty($data))
-          $this->news->setGuid($data);
+          if ($this->guid)
+            $this->news->setGuid($data);
 
-        if ($this->category && !empty($data))
-          $this->news->setCategory(empty($this->news->getCategory()) ? $data : $this->news->getCategory().', '.$data);
+          if ($this->category)
+            $this->news->setCategory(empty($this->news->getCategory()) ? $data : $this->news->getCategory().', '.$data);
+        }
     }
 }

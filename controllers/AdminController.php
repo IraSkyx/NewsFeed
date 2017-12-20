@@ -5,7 +5,7 @@ error_reporting(E_ALL & ~E_NOTICE);
 class AdminController extends UserController {
 
 	function __construct($action) {
-		global $rep,$views,$contents, $admin;
+		global $rep,$views,$contents,$admin,$count;
 		$errors = array();
 
 		try {
@@ -52,20 +52,20 @@ class AdminController extends UserController {
 		exit(0);
 	}
 
-	private function logout() {
+	private function logout() : void {
 		global $rep,$views,$contents;
 		AdminModel::disconnect();
 		header('Location: index.php');
 	}
 
-	private function viewFlux() {
-		global $rep,$views,$contents,$admin;
+	private function viewFlux() : void {
+		global $rep,$views,$contents,$admin,$count;
 		$allFlux=AdminModel::getAllFlux();
 		require($rep.$views['viewFlux']);
 	}
 
-	private function addFlux() {
-		global $rep,$views,$contents,$admin;
+	private function addFlux() : void {
+		global $rep,$views,$contents,$admin,$count;
 		$args=array($_POST['name'], $_POST['link']);
 
 		if(Validation::areSet($args) && Validation::areNotEmpty($args)){
@@ -83,8 +83,8 @@ class AdminController extends UserController {
 		}
 	}
 
-	private function updateFlux() {
-		global $rep,$views,$contents,$admin;
+	private function updateFlux() : void {
+		global $rep,$views,$contents,$admin,$count;
 		$args=array($_GET['id'], $_POST['name'], $_POST['link']);
 
 		if (Validation::areSet($args) && Validation::areNotEmpty($args)){
@@ -102,8 +102,8 @@ class AdminController extends UserController {
     }
 	}
 
-	private function deleteFlux() {
-		global $rep,$views,$contents,$admin;
+	private function deleteFlux() : void {
+		global $rep,$views,$contents,$admin,$count;
 
 		if(isset($_GET['id']) && !empty($_GET['id'])){
 			AdminModel::deleteFlux($_GET['id']);
