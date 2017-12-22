@@ -8,20 +8,9 @@ $admin=NULL;
 $nbNewsPerPage=10;
 $count=NULL;
 
-//Config Adrien
-//dsn="mysql:host=localhost;dbname=dbadlenoir";
-//$login="root";
-//$password="";
-
-//Config Gabin
-//$dsn="mysql:host=localhost;dbname=dbadlenoir";
-//$login="root";
-//$password="root";
-
-//Config IUT
-$dsn="mysql:host=hina;dbname=dbadlenoir";
-$login="adlenoir";
-$password="adlenoir";
+$dsn="mysql:host=localhost;dbname=dbadlenoir";
+$login="root";
+$password="";
 
 //Views
 $views['error']='views/Error.php';
