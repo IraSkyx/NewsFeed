@@ -24,7 +24,7 @@ Then you need to import .sql file located in the project root.
 
 * XML Parser engine
 * Factory pattern
-* Autoloader PSR-1
+* Autoloader PSR-0
 * MVC pattern
 
 ## Authors
