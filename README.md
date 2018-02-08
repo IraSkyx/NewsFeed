@@ -24,17 +24,13 @@ Then you need to import .sql file located in the project root.
 
 * XML Parser engine
 * Factory pattern
-* Autoloader with singleton pattern
+* Autoloader PSR-1
 * MVC pattern
 
 ## Authors
 
 * **Gabin Salabert** - [Github Page](https://github.com/GabinSalabert)
 * **Adrien Lenoir** - [Github Page](https://github.com/IraSkyx)
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
 
